@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+
+    body{
+        @apply bg-slate-100 text-slate-800 antialiased;
+        font-family: "Inter", sans-serif;
+    }
+
+}
+
+@layer components {
+
+    .nx-card{
+        @apply bg-white rounded-3xl shadow-xl border border-slate-200;
+    }
+
+    .nx-button{
+        @apply px-6 py-3 rounded-xl bg-blue-600 text-white font-semibold transition-all duration-300;
+    }
+
+    .nx-button:hover{
+        @apply bg-blue-700 shadow-lg -translate-y-1;
+    }
+
+    .nx-input{
+        @apply w-full rounded-xl border-slate-300 focus:border-blue-500 focus:ring-blue-500;
+    }
+
+}

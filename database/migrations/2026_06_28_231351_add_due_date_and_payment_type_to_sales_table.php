@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::table('sales', function (Blueprint $table) {
+
+            $table->date('due_date')
+                ->nullable()
+                ->after('sale_date');
+
+            $table->enum('payment_type', [
+                'Cash',
+                'Credit',
+                'Card',
+                'Bank',
+                'Mixed',
+            ])->default('Credit')->after('due_date');
+
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('sales', function (Blueprint $table) {
+
+            $table->dropColumn([
+                'due_date',
+                'payment_type',
+            ]);
+
+        });
+    }
+};
