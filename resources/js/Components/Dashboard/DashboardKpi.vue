@@ -32,7 +32,33 @@ defineProps({
         default: 0,
     },
 
+    monthVatTotal: {
+        type: Number,
+        default: 0,
+    },
+
+    monthGrossProfit: {
+        type: Number,
+        default: 0,
+    },
+
+    monthProfitMargin: {
+        type: Number,
+        default: 0,
+    },
+
+    hideSensitive: {
+        type: Boolean,
+        default: false,
+    },
+
 });
+
+const money = (value) => `₺${Number(value).toLocaleString('tr-TR', {
+    minimumFractionDigits: 2,
+})}`;
+
+const hiddenValue = '••••••';
 
 </script>
 
@@ -50,9 +76,7 @@ defineProps({
 
         <h2 class="text-3xl font-bold mt-4 text-emerald-600">
 
-            ₺{{ Number(todayRevenue).toLocaleString('tr-TR',{
-                minimumFractionDigits:2
-            }) }}
+            {{ hideSensitive ? hiddenValue : money(todayRevenue) }}
 
         </h2>
 
@@ -68,9 +92,7 @@ defineProps({
 
         <h2 class="text-3xl font-bold mt-4 text-blue-600">
 
-            ₺{{ Number(todayCollection).toLocaleString('tr-TR',{
-                minimumFractionDigits:2
-            }) }}
+            {{ hideSensitive ? hiddenValue : money(todayCollection) }}
 
         </h2>
 
@@ -86,9 +108,7 @@ defineProps({
 
         <h2 class="text-3xl font-bold mt-4 text-purple-600">
 
-            ₺{{ Number(totalCash).toLocaleString('tr-TR',{
-                minimumFractionDigits:2
-            }) }}
+            {{ hideSensitive ? hiddenValue : money(totalCash) }}
 
         </h2>
 
@@ -104,9 +124,7 @@ defineProps({
 
         <h2 class="text-3xl font-bold mt-4 text-red-600">
 
-            ₺{{ Number(totalReceivable).toLocaleString('tr-TR',{
-                minimumFractionDigits:2
-            }) }}
+            {{ hideSensitive ? hiddenValue : money(totalReceivable) }}
 
         </h2>
 
@@ -139,6 +157,54 @@ defineProps({
         <h2 class="text-3xl font-bold mt-4 text-indigo-600">
 
             {{ todaySales }}
+
+        </h2>
+
+    </div>
+
+    <!-- Bu Ay Oluşan KDV -->
+
+    <div class="bg-white rounded-2xl p-6 shadow-sm border">
+
+        <p class="text-slate-500 text-sm">
+            🧮 Bu Ay Oluşan KDV
+        </p>
+
+        <h2 class="text-3xl font-bold mt-4 text-cyan-600">
+
+            {{ hideSensitive ? hiddenValue : money(monthVatTotal) }}
+
+        </h2>
+
+    </div>
+
+    <!-- Bu Ay Brüt Kar -->
+
+    <div class="bg-white rounded-2xl p-6 shadow-sm border">
+
+        <p class="text-slate-500 text-sm">
+            📈 Bu Ay Brüt Kar
+        </p>
+
+        <h2 class="text-3xl font-bold mt-4 text-emerald-700">
+
+            {{ hideSensitive ? hiddenValue : money(monthGrossProfit) }}
+
+        </h2>
+
+    </div>
+
+    <!-- Kar Oranı -->
+
+    <div class="bg-white rounded-2xl p-6 shadow-sm border">
+
+        <p class="text-slate-500 text-sm">
+            🎯 Bu Ay Kar Oranı
+        </p>
+
+        <h2 class="text-3xl font-bold mt-4 text-slate-900">
+
+            {{ hideSensitive ? hiddenValue : `%${Number(monthProfitMargin).toLocaleString('tr-TR',{ minimumFractionDigits:2 })}` }}
 
         </h2>
 

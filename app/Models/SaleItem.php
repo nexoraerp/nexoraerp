@@ -15,6 +15,7 @@ class SaleItem extends Model
         'warehouse_id',
         'quantity',
         'unit_price',
+        'purchase_price_snapshot',
         'discount',
         'vat',
         'line_total',
@@ -26,6 +27,7 @@ class SaleItem extends Model
     protected $casts = [
         'quantity'    => 'decimal:2',
         'unit_price'  => 'decimal:2',
+        'purchase_price_snapshot' => 'decimal:2',
         'discount'    => 'decimal:2',
         'vat'         => 'decimal:2',
         'line_total'  => 'decimal:2',

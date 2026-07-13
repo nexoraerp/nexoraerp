@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\BelongsToCurrentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use HasFactory;
+    use BelongsToCurrentUser, HasFactory;
 
     protected $fillable = [
+        'user_id',
         'code',
         'barcode',
         'name',
@@ -82,5 +84,10 @@ class Product extends Model
     public function getCurrentStockAttribute()
     {
         return $this->currentStock();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -37,11 +37,7 @@ const today = new Date().toLocaleDateString('tr-TR', {
 
             <div class="hidden lg:block text-right">
 
-                <div class="text-7xl">
-                    🚀
-                </div>
-
-                <p class="mt-4 text-blue-200">
+                <p class="text-blue-200">
                     {{ today }}
                 </p>
 

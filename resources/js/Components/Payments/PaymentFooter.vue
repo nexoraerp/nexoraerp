@@ -33,20 +33,20 @@ const total = () => {
 <template>
 
 <div
-    class="sticky bottom-0 bg-white border border-slate-200 rounded-2xl shadow-xl p-6"
+    class="sticky bottom-0 bg-white border border-slate-200 rounded-2xl shadow-xl p-6 dark:border-slate-800 dark:bg-slate-950"
 >
 
     <div class="flex items-center justify-between">
 
         <div>
 
-            <p class="text-slate-500 text-sm">
+            <p class="text-slate-500 text-sm dark:text-slate-400">
 
                 Seçilen Fatura
 
             </p>
 
-            <h2 class="text-2xl font-bold mt-1">
+            <h2 class="text-2xl font-bold mt-1 text-slate-900 dark:text-slate-100">
 
                 {{ props.selectedSales.length }}
 
@@ -56,7 +56,7 @@ const total = () => {
 
         <div class="text-center">
 
-            <p class="text-slate-500 text-sm">
+            <p class="text-slate-500 text-sm dark:text-slate-400">
 
                 Toplam Tahsilat
 
@@ -83,7 +83,7 @@ const total = () => {
                 : 'bg-blue-600 hover:bg-blue-700'"
         >
 
-            💰 Tahsilatı Kaydet
+            Tahsilatı Kaydet
 
         </button>
 

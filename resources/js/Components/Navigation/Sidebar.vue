@@ -1,19 +1,39 @@
 <script setup>
 import { Link, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 
 import {
     LayoutDashboard,
     Users,
     Package,
     Boxes,
+    ArrowLeftRight,
     ReceiptText,
+    FileText,
     Banknote,
     Wallet,
     BarChart3,
     Settings,
+    ShieldCheck,
+    History,
+    UserCog,
+    CircleDollarSign,
+    LifeBuoy,
+    LockKeyhole,
 } from 'lucide-vue-next';
 
 const page = usePage();
+
+const canSeeAdmin = computed(() => page.props.auth?.user?.role === 'admin');
+const user = computed(() => page.props.auth?.user ?? {});
+const isSubUser = computed(() => Boolean(user.value.parent_user_id));
+const canAccess = (permission) => {
+    if (!permission || !isSubUser.value) {
+        return true;
+    }
+
+    return (user.value.permissions ?? []).includes(permission);
+};
 
 const groups = [
 
@@ -39,18 +59,21 @@ const groups = [
                 icon: Users,
                 route: 'customers.index',
                 prefix: '/customers',
+                permission: 'customers',
+            },
+            {
+                title: 'Teklifler',
+                icon: FileText,
+                route: 'quotes.index',
+                prefix: '/quotes',
+                permission: 'quotes',
             },
             {
                 title: 'Satışlar',
                 icon: ReceiptText,
                 route: 'sales.index',
                 prefix: '/sales',
-            },
-            {
-                title: 'Tahsilatlar',
-                icon: Banknote,
-                route: 'payments.index',
-                prefix: '/payments',
+                permission: 'sales',
             },
         ],
     },
@@ -64,29 +87,60 @@ const groups = [
                 icon: Package,
                 route: 'products.index',
                 prefix: '/products',
+                permission: 'products',
             },
             {
                 title: 'Depolar',
                 icon: Boxes,
                 route: 'warehouses.index',
                 prefix: '/warehouses',
+                permission: 'warehouses',
+            },
+            {
+                title: 'Stok Hareketleri',
+                icon: BarChart3,
+                route: 'stock-movements.index',
+                prefix: '/stock-movements',
+                exact: true,
+                permission: 'stock',
+            },
+            {
+                title: 'Depo Transferi',
+                icon: ArrowLeftRight,
+                route: 'stock-movements.transfer',
+                prefix: '/stock-movements/transfer',
+                permission: 'stock',
             },
         ],
     },
 
     {
-        title: 'FİNANS',
+    title: 'FİNANS',
 
-        items: [
-            {
-                title: 'Kasa',
-                icon: Wallet,
-                route: '#',
-                prefix: '/cash',
-                disabled: true,
-            },
-        ],
-    },
+    items: [
+        {
+            title: 'Tahsilatlar',
+            icon: Banknote,
+            route: 'payments.index',
+            prefix: '/payments',
+            permission: 'payments',
+        },
+        {
+            title: 'Kasa Hesapları',
+            icon: Wallet,
+            route: 'cash-accounts.index',
+            prefix: '/cash-accounts',
+            permission: 'finance',
+        },
+        {
+            title: 'Gider Yönetimi',
+            icon: CircleDollarSign,
+            route: 'expenses.index',
+            prefix: '/expenses',
+            permission: 'expenses.view',
+        },
+    ],
+},
 
     {
         title: 'RAPORLAR',
@@ -95,30 +149,110 @@ const groups = [
             {
                 title: 'Raporlar',
                 icon: BarChart3,
-                route: '#',
+                route: 'reports.index',
                 prefix: '/reports',
-                disabled: true,
+                exact: true,
+                permission: 'reports',
+            },
+            {
+                title: 'Kâr/Zarar Raporu',
+                icon: BarChart3,
+                route: 'reports.profit-loss',
+                prefix: '/reports/profit-loss',
+                permission: 'profit_loss.view',
+            },
+            {
+                title: 'Risk Analizi',
+                icon: BarChart3,
+                route: 'risk-analysis.index',
+                prefix: '/risk-analysis',
+                permission: 'reports',
             },
         ],
     },
 
     {
-        title: 'SİSTEM',
+        title: 'YÖNETİM',
+
+        items: [
+            {
+                title: 'Kullanıcılar',
+                icon: Users,
+                href: '/settings?section=users',
+                prefix: '/settings?section=users',
+                permission: 'settings',
+            },
+            {
+                title: 'Yetkiler',
+                icon: UserCog,
+                href: '/settings?section=permissions',
+                prefix: '/settings?section=permissions',
+                permission: 'settings',
+            },
+            {
+                title: 'İşlem Geçmişi',
+                icon: History,
+                route: 'audit-logs.index',
+                prefix: '/audit-logs',
+                permission: 'settings',
+            },
+            {
+                title: 'Destek Talepleri',
+                icon: LifeBuoy,
+                route: 'admin.support-tickets.index',
+                prefix: '/admin/support-tickets',
+                adminOnly: true,
+            },
+            {
+                title: 'Admin Panel',
+                icon: ShieldCheck,
+                route: 'admin.progress.index',
+                prefix: '/admin/progress',
+                adminOnly: true,
+            },
+        ],
+    },
+
+    {
+        title: 'AYARLAR',
 
         items: [
             {
                 title: 'Ayarlar',
                 icon: Settings,
-                route: '#',
-                prefix: '/settings',
-                disabled: true,
+                href: '/settings?section=definitions',
+                prefix: '/settings?section=definitions',
+                permission: 'settings',
+            },
+            {
+                title: 'Şifre ve Güvenlik',
+                icon: LockKeyhole,
+                href: '/settings?section=security',
+                prefix: '/settings?section=security',
+                permission: 'settings',
+            },
+            {
+                title: 'Çözüm Öneri',
+                icon: LifeBuoy,
+                route: 'support-tickets.index',
+                prefix: '/support-tickets',
+                permission: 'support',
             },
         ],
     },
 
 ];
 
-const isActive = (prefix) => page.url.startsWith(prefix);
+const isActive = (item) => {
+    const current = page.url.split('#')[0];
+    const target = item.href ?? item.prefix;
+
+    if (item.exact || target.includes('?')) {
+        return current === target;
+    }
+
+    return current === item.prefix || current.startsWith(`${item.prefix}/`);
+};
 </script>
 
 <template>
@@ -128,7 +262,7 @@ const isActive = (prefix) => page.url.startsWith(prefix);
     <div class="px-8 py-8 border-b border-slate-800">
 
         <h1 class="text-3xl font-black tracking-[0.30em]">
-            NEXORA
+            NE<span class="text-blue-500">X</span>ORA
         </h1>
 
         <p class="text-slate-400 text-sm mt-2">
@@ -159,11 +293,11 @@ const isActive = (prefix) => page.url.startsWith(prefix);
                 >
 
                     <Link
-                        v-if="!item.disabled"
-                        :href="route(item.route)"
+                        v-if="!item.disabled && (!item.adminOnly || canSeeAdmin) && canAccess(item.permission)"
+                        :href="item.href ?? route(item.route)"
                         :class="[
                             'flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200',
-                            isActive(item.prefix)
+                            isActive(item)
                                 ? 'bg-blue-600 text-white shadow-lg'
                                 : 'text-slate-300 hover:bg-slate-800 hover:text-white'
                         ]"
@@ -181,7 +315,7 @@ const isActive = (prefix) => page.url.startsWith(prefix);
                     </Link>
 
                     <div
-                        v-else
+                        v-else-if="!item.adminOnly || canSeeAdmin"
                         class="flex items-center justify-between px-4 py-3 rounded-xl text-slate-500 cursor-not-allowed"
                     >
 
@@ -216,4 +350,4 @@ const isActive = (prefix) => page.url.startsWith(prefix);
 
 </aside>
 
-</template>
+</template> 

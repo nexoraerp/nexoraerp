@@ -7,6 +7,21 @@ import NxSelect from '@/Components/UI/NxSelect.vue';
 defineProps({
     form: Object,
 
+    warehouses: {
+        type: Array,
+        default: () => [],
+    },
+
+    definitions: {
+        type: Object,
+        default: () => ({
+            category: [],
+            brand: [],
+            model: [],
+            unit: [],
+        }),
+    },
+
     buttonText: {
         type: String,
         default: 'Kaydet',
@@ -33,47 +48,46 @@ defineEmits(['submit']);
             <NxInput
                 label="Ürün Kodu"
                 v-model="form.code"
+                :error="form.errors.code"
             />
 
             <NxInput
                 label="Barkod"
                 v-model="form.barcode"
+                :error="form.errors.barcode"
             />
 
             <NxInput
                 label="Ürün Adı"
                 v-model="form.name"
+                :error="form.errors.name"
             />
 
             <NxSelect
                 label="Kategori"
                 v-model="form.category"
-                :options="[
-                    'Panel',
-                    'İnverter',
-                    'Akü',
-                    'Kablo',
-                    'Aksesuar',
-                    'Montaj'
-                ]"
+                :options="definitions.category ?? []"
+                option-label="label"
+                option-value="value"
+                :error="form.errors.category"
             />
 
             <NxSelect
                 label="Marka"
                 v-model="form.brand"
-                :options="[
-                    'Lexron',
-                    'Must',
-                    'Deye',
-                    'Huawei',
-                    'Victron',
-                    'Growatt'
-                ]"
+                :options="definitions.brand ?? []"
+                option-label="label"
+                option-value="value"
+                :error="form.errors.brand"
             />
 
-            <NxInput
+            <NxSelect
                 label="Model"
                 v-model="form.model"
+                :options="definitions.model ?? []"
+                option-label="label"
+                option-value="value"
+                :error="form.errors.model"
             />
 
         </div>
@@ -94,18 +108,21 @@ defineEmits(['submit']);
                 type="number"
                 label="Alış Fiyatı"
                 v-model="form.purchase_price"
+                :error="form.errors.purchase_price"
             />
 
             <NxInput
                 type="number"
                 label="Satış Fiyatı"
                 v-model="form.sale_price"
+                :error="form.errors.sale_price"
             />
 
             <NxInput
                 type="number"
                 label="KDV (%)"
                 v-model="form.vat"
+                :error="form.errors.vat"
             />
 
         </div>
@@ -126,24 +143,32 @@ defineEmits(['submit']);
                 type="number"
                 label="Mevcut Stok"
                 v-model="form.stock"
+                :error="form.errors.stock"
+            />
+
+            <NxSelect
+                label="Stok Deposu"
+                v-model="form.warehouse_id"
+                :options="warehouses"
+                option-label="label"
+                option-value="value"
+                :error="form.errors.warehouse_id"
             />
 
             <NxInput
                 type="number"
                 label="Minimum Stok"
                 v-model="form.min_stock"
+                :error="form.errors.min_stock"
             />
 
             <NxSelect
                 label="Birim"
                 v-model="form.unit"
-                :options="[
-                    'Adet',
-                    'Metre',
-                    'Takım',
-                    'Kutu',
-                    'Paket'
-                ]"
+                :options="definitions.unit ?? []"
+                option-label="label"
+                option-value="value"
+                :error="form.errors.unit"
             />
 
         </div>

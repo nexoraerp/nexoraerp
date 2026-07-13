@@ -18,7 +18,7 @@ const { current } = useShowcase();
 
 <div
     :key="current.id"
-    class="overflow-hidden rounded-[32px]
+    class="overflow-hidden rounded-lg
            border border-slate-200
            bg-white
            shadow-[0_30px_90px_rgba(15,23,42,.08)]">

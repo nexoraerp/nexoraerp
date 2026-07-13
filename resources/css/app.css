@@ -8,6 +8,10 @@
         font-family: "Inter", sans-serif;
     }
 
+    html.dark body {
+        @apply bg-slate-950 text-slate-100;
+    }
+
 }
 
 @layer components {
@@ -26,6 +30,75 @@
 
     .nx-input{
         @apply w-full rounded-xl border-slate-300 focus:border-blue-500 focus:ring-blue-500;
+    }
+
+}
+
+@layer utilities {
+
+    @keyframes nexoraTicker {
+        from {
+            transform: translateX(0);
+        }
+
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    html.dark .bg-white {
+        @apply bg-slate-900;
+    }
+
+    html.dark .bg-slate-50,
+    html.dark .bg-slate-100 {
+        @apply bg-slate-800;
+    }
+
+    html.dark .border-slate-100,
+    html.dark .border-slate-200,
+    html.dark .border-slate-300 {
+        @apply border-slate-700;
+    }
+
+    html.dark .text-slate-950,
+    html.dark .text-slate-900,
+    html.dark .text-slate-800,
+    html.dark .text-slate-700 {
+        @apply text-slate-100;
+    }
+
+    html.dark .text-slate-600,
+    html.dark .text-slate-500,
+    html.dark .text-slate-400 {
+        @apply text-slate-300;
+    }
+
+    html.dark table thead {
+        @apply bg-slate-800;
+    }
+
+    html.dark table tbody tr:hover {
+        @apply bg-slate-800;
+    }
+
+    html.dark input,
+    html.dark select,
+    html.dark textarea {
+        @apply border-slate-700 bg-slate-950 text-slate-100;
+    }
+
+    html.dark input::placeholder,
+    html.dark textarea::placeholder {
+        color: rgb(100 116 139);
+    }
+
+    html.dark .shadow-sm,
+    html.dark .shadow-md,
+    html.dark .shadow-lg,
+    html.dark .shadow-xl,
+    html.dark .shadow-2xl {
+        --tw-shadow-color: rgb(2 6 23 / 0.45);
     }
 
 }

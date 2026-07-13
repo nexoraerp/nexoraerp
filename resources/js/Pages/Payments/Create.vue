@@ -218,13 +218,13 @@ form.post(route('payments.store'));
 
 <div class="mb-8">
 
-<h1 class="text-3xl font-bold text-slate-800">
+<h1 class="text-3xl font-bold text-slate-800 dark:text-slate-100">
 
-💰 Tahsilat Oluştur
+Tahsilat Oluştur
 
 </h1>
 
-<p class="text-slate-500 mt-2">
+<p class="text-slate-500 mt-2 dark:text-slate-400">
 
 Açık faturaları seçerek tahsilat oluşturabilirsiniz.
 
@@ -265,6 +265,8 @@ Açık faturaları seçerek tahsilat oluşturabilirsiniz.
 <PaymentFooter
 
 :selected-sales="selectedSales"
+
+:items="form.items"
 
 @save="save"
 

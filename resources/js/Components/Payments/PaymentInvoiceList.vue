@@ -59,17 +59,17 @@ const updateAmount = (sale, amount) => {
 
         <div
             v-if="sales.length === 0"
-            class="rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 p-12 text-center"
+            class="rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 p-12 text-center dark:border-slate-700 dark:bg-slate-950"
         >
             <div class="text-5xl mb-4">
                 📄
             </div>
 
-            <h3 class="text-lg font-semibold text-slate-700">
+            <h3 class="text-lg font-semibold text-slate-700 dark:text-slate-100">
                 Açık Fatura Bulunamadı
             </h3>
 
-            <p class="mt-2 text-slate-500">
+            <p class="mt-2 text-slate-500 dark:text-slate-400">
                 Cari seçildiğinde tahsil edilebilir faturalar burada listelenecek.
             </p>
 

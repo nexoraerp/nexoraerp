@@ -24,17 +24,16 @@ import { Link } from '@inertiajs/vue3';
             <h2
                 class="mt-6 text-5xl font-black text-slate-900"
             >
-                Tek Paket,
+                Net Paketler,
                 <span class="text-blue-600">
-                    Tüm Özellikler
+                    Şeffaf Fiyatlar
                 </span>
             </h2>
 
             <p
                 class="mt-6 text-lg leading-8 text-slate-600"
             >
-                Gizli ücret yok, karmaşık paketler yok.
-                Nexora'nın tüm özelliklerine tek abonelik ile erişin.
+                Gizli ücret yok. Başlangıç, profesyonel ve kurumsal ihtiyaçlar için sade paketler.
             </p>
 
         </div>
@@ -78,13 +77,13 @@ import { Link } from '@inertiajs/vue3';
                             <span
                                 class="text-6xl font-black text-slate-900"
                             >
-                                ₺...
+                                ₺3.990
                             </span>
 
                             <span
-                                class="pb-2 text-slate-500"
+                                class="pb-2 font-black text-slate-500"
                             >
-                                / ay
+                                /Ay
                             </span>
 
                         </div>
@@ -92,7 +91,7 @@ import { Link } from '@inertiajs/vue3';
                         <p
                             class="mt-4 text-sm text-slate-500"
                         >
-                            Fiyat yayınlandığında güncellenecek.
+                            Professional paket aylık başlangıç fiyatıdır. Starter paket ₺1.990 /Ay olarak sunulur.
                         </p>
 
                     </div>

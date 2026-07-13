@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Onboarding\CompleteFirstPaymentTaskAction;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use App\Models\Customer;
@@ -10,11 +11,17 @@ use Inertia\Inertia;
 use App\Models\PaymentItem;
 use App\Models\Sale;
 use Illuminate\Support\Facades\DB;
-use App\Services\Finance\AccountMovementService;
-use App\Services\Finance\CashMovementService;
 use App\Models\CashAccount;
+use App\Models\AccountMovement;
+use App\Models\CashMovement;
+
 class PaymentController extends Controller
 {
+    public function __construct(
+        protected CompleteFirstPaymentTaskAction $completeFirstPaymentTask
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -107,9 +114,9 @@ class PaymentController extends Controller
     
                 'payment_method' => $validated['payment_method'],
     
-                'reference_no' => $validated['reference_no'],
+                'reference_no' => $validated['reference_no'] ?? null,
     
-                'notes' => $validated['notes'],
+                'notes' => $validated['notes'] ?? null,
     
                 'user_id' => Auth::id(),
     
@@ -118,6 +125,14 @@ class PaymentController extends Controller
             foreach ($validated['items'] as $item) {
 
                 $sale = Sale::findOrFail($item['sale_id']);
+
+                if ((int) $sale->customer_id !== (int) $validated['customer_id']) {
+
+                    throw new \Exception(
+                        'Seçilen fatura bu cariye ait değil.'
+                    );
+
+                }
             
                 /*
                 |--------------------------------------------------------------------------
@@ -165,50 +180,41 @@ class PaymentController extends Controller
             
                 ]);
 
-                /*
-|--------------------------------------------------------------------------
-| Satış Bakiyesini Güncelle
-|--------------------------------------------------------------------------
-*/
+                $sale->paid_total = $sale->paid_total + $item['amount'];
 
-$sale->paid_total = $sale->paid_total + $item['amount'];
+                $sale->remaining_total = max(
+                    0,
+                    $sale->remaining_total - $item['amount']
+                );
 
-$sale->remaining_total = max(
-    0,
-    $sale->remaining_total - $item['amount']
-);
+                if ($sale->remaining_total == 0) {
+                    $sale->payment_status = 'Paid';
+                } elseif ($sale->paid_total > 0) {
+                    $sale->payment_status = 'Partial';
+                } else {
+                    $sale->payment_status = 'Unpaid';
+                }
 
-if ($sale->remaining_total == 0) {
+                $sale->save();
 
-    $sale->payment_status = 'Paid';
+                $this->recordAccountMovement(
+                    $payment,
+                    $sale,
+                    $item['amount']
+                );
 
-} elseif ($sale->paid_total > 0) {
-
-    $sale->payment_status = 'Partial';
-
-} else {
-
-    $sale->payment_status = 'Unpaid';
-
-}
-
-$sale->save();
-
-AccountMovementService::recordPayment(
-    $payment,
-    $sale,
-    $item['amount']
-);
-CashMovementService::recordCollection(
-    $payment,
-    $sale,
-    $item['amount'],
-    $validated['cash_account_id']
-);
+                $this->recordCashMovement(
+                    $payment,
+                    $sale,
+                    $item['amount'],
+                    $validated['cash_account_id']
+                );
 
             
             }
     
+            $this->completeFirstPaymentTask->execute($request->user());
+
             DB::commit();
     
             return redirect()
@@ -219,7 +225,7 @@ CashMovementService::recordCollection(
     
             DB::rollBack();
     
-            throw $e;
+            return back()->with('error', $e->getMessage());
     
         }
     }
@@ -254,5 +260,43 @@ CashMovementService::recordCollection(
     public function destroy(Payment $payment)
     {
         //
+    }
+
+    private function recordAccountMovement(
+        Payment $payment,
+        Sale $sale,
+        float $amount
+    ): void {
+        AccountMovement::create([
+            'customer_id' => $payment->customer_id,
+            'movement_date' => $payment->payment_date,
+            'type' => 'PAYMENT',
+            'reference_type' => Payment::class,
+            'reference_id' => $payment->id,
+            'debit' => 0,
+            'credit' => $amount,
+            'due_date' => $sale->due_date,
+            'description' => 'Tahsilat : '.$payment->payment_no.' / '.$sale->sale_no,
+            'user_id' => Auth::id(),
+        ]);
+    }
+
+    private function recordCashMovement(
+        Payment $payment,
+        Sale $sale,
+        float $amount,
+        int $cashAccountId
+    ): void {
+        CashMovement::create([
+            'cash_account_id' => $cashAccountId,
+            'movement_date' => $payment->payment_date,
+            'type' => 'COLLECTION',
+            'reference_type' => Payment::class,
+            'reference_id' => $payment->id,
+            'debit' => $amount,
+            'credit' => 0,
+            'description' => 'Tahsilat : '.$payment->payment_no.' / '.$sale->sale_no,
+            'user_id' => Auth::id(),
+        ]);
     }
 }

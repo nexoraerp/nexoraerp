@@ -20,6 +20,11 @@ defineProps({
 
     totalRevenue: Number,
 
+    hideSensitive: {
+        type: Boolean,
+        default: false,
+    },
+
 });
 
 </script>
@@ -57,7 +62,7 @@ defineProps({
 
     <NxDashboardCard
         title="Toplam Ciro"
-        :count="Number(totalRevenue).toLocaleString('tr-TR') + ' ₺'"
+        :count="hideSensitive ? '••••••' : Number(totalRevenue).toLocaleString('tr-TR') + ' ₺'"
         subtitle="Tamamlanan Satışlar"
         icon="💰"
         color="green"

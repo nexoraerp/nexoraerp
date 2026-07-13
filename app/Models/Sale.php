@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\BelongsToCurrentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Sale extends Model
 {
-    use HasFactory;
+    use BelongsToCurrentUser, HasFactory;
 
     protected $fillable = [
 
@@ -36,6 +37,16 @@ class Sale extends Model
         'remaining_total',
     
         'status',
+
+        'completed_at',
+
+        'completed_by',
+
+        'cancelled_at',
+
+        'cancelled_by',
+
+        'cancel_reason',
     
         'notes',
     

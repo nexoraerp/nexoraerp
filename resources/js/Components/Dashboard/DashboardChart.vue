@@ -29,6 +29,11 @@ const props = defineProps({
         type: Array,
         default: () => [],
     },
+
+    hideSensitive: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const chartData = computed(() => ({
@@ -106,7 +111,23 @@ const chartOptions = {
             </p>
         </div>
 
-        <div class="h-96">
+        <div
+            v-if="hideSensitive"
+            class="flex h-96 items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-slate-50 text-center"
+        >
+            <div>
+                <div class="text-4xl">•••</div>
+                <h3 class="mt-4 text-lg font-black text-slate-950">Grafik müşteri modunda gizlendi</h3>
+                <p class="mt-2 max-w-md text-sm text-slate-500">
+                    Satış ve tahsilat tutarları müşteri yanında görünmesin diye geçici olarak maskelendi.
+                </p>
+            </div>
+        </div>
+
+        <div
+            v-else
+            class="h-96"
+        >
 
             <Line
                 :data="chartData"

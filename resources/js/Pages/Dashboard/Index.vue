@@ -1,5 +1,7 @@
 <script setup>
+import { onMounted, ref, watch } from 'vue';
 import { Head } from '@inertiajs/vue3';
+import { Eye, EyeOff } from 'lucide-vue-next';
 
 import NxLayout from '@/Layouts/NxLayout.vue';
 
@@ -11,161 +13,181 @@ import DashboardCriticalStock from '@/Components/Dashboard/DashboardCriticalStoc
 import DashboardLastMovements from '@/Components/Dashboard/DashboardLastMovements.vue';
 import DashboardChart from '@/Components/Dashboard/DashboardChart.vue';
 
+const hideSensitive = ref(false);
+
+onMounted(() => {
+    hideSensitive.value = localStorage.getItem('nexora-dashboard-sensitive-hidden') === 'true';
+});
+
+watch(hideSensitive, (value) => {
+    localStorage.setItem('nexora-dashboard-sensitive-hidden', value ? 'true' : 'false');
+});
+
 defineProps({
 
-/*
-|--------------------------------------------------------------------------
-| Genel İstatistikler
-|--------------------------------------------------------------------------
-*/
-salesChart: {
-type: Array,
-default: () => [],
-},
-customerCount: Number,
+    /*
+    |--------------------------------------------------------------------------
+    | Genel İstatistikler
+    |--------------------------------------------------------------------------
+    */
 
-productCount: Number,
+    salesChart: {
+        type: Array,
+        default: () => [],
+    },
 
-warehouseCount: Number,
+    customerCount: Number,
+    productCount: Number,
+    warehouseCount: Number,
+    movementCount: Number,
 
-movementCount: Number,
+    /*
+    |--------------------------------------------------------------------------
+    | Satış İstatistikleri
+    |--------------------------------------------------------------------------
+    */
 
-/*
-|--------------------------------------------------------------------------
-| Satış İstatistikleri
-|--------------------------------------------------------------------------
-*/
+    saleCount: Number,
+    completedSales: Number,
+    cancelledSales: Number,
+    todaySales: Number,
+    totalRevenue: Number,
+    todayRevenue: Number,
+    monthRevenue: Number,
+    averageSale: Number,
+    monthVatTotal: Number,
+    monthGrossProfit: Number,
+    monthProfitMargin: Number,
 
-saleCount: Number,
+    /*
+    |--------------------------------------------------------------------------
+    | Finans
+    |--------------------------------------------------------------------------
+    */
 
-completedSales: Number,
+    todayCollection: Number,
+    totalCash: Number,
+    totalReceivable: Number,
+    openInvoiceCount: Number,
 
-cancelledSales: Number,
+    lastPayments: {
+        type: Array,
+        default: () => [],
+    },
 
-todaySales: Number,
+    /*
+    |--------------------------------------------------------------------------
+    | Dashboard Widgetları
+    |--------------------------------------------------------------------------
+    */
 
-totalRevenue: Number,
+    topProducts: {
+        type: Array,
+        default: () => [],
+    },
 
-todayRevenue: Number,
+    lastSales: {
+        type: Array,
+        default: () => [],
+    },
 
-monthRevenue: Number,
+    criticalProducts: {
+        type: Array,
+        default: () => [],
+    },
 
-averageSale: Number,
+    lastMovements: {
+        type: Array,
+        default: () => [],
+    },
 
-/*
-|--------------------------------------------------------------------------
-| Finans
-|--------------------------------------------------------------------------
-*/
-
-todayCollection: Number,
-
-totalCash: Number,
-
-totalReceivable: Number,
-
-openInvoiceCount: Number,
-
-lastPayments: {
-type: Array,
-default: () => [],
-},
-
-/*
-|--------------------------------------------------------------------------
-| Dashboard Widgetları
-|--------------------------------------------------------------------------
-*/
-
-topProducts: {
-type: Array,
-default: () => [],
-},
-
-lastSales: {
-type: Array,
-default: () => [],
-},
-
-criticalProducts: {
-type: Array,
-default: () => [],
-},
-
-lastMovements: {
-type: Array,
-default: () => [],
-},
-
-})        ;
+});
 </script>
 
 <template>
 
-<Head title="Dashboard" />
+    <Head title="Dashboard" />
 
-<NxLayout>
+    <NxLayout>
 
-<div class="space-y-8">
+        <div class="space-y-8">
 
-<!-- Hero -->
+            <div class="flex justify-end">
+                <button
+                    type="button"
+                    class="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-black text-slate-700 shadow-sm transition hover:border-blue-200 hover:text-blue-700"
+                    @click="hideSensitive = !hideSensitive"
+                >
+                    <EyeOff
+                        v-if="hideSensitive"
+                        class="h-4 w-4"
+                    />
+                    <Eye
+                        v-else
+                        class="h-4 w-4"
+                    />
+                    {{ hideSensitive ? 'Hassas Bilgileri Göster' : 'Müşteri Modu' }}
+                </button>
+            </div>
 
-<DashboardHero />
+            <!-- Hero -->
+            <DashboardHero />
 
-<!-- KPI -->
+            <!-- KPI -->
+            <DashboardKpi
+                :today-revenue="todayRevenue"
+                :today-sales="todaySales"
+                :today-collection="todayCollection"
+                :total-cash="totalCash"
+                :total-receivable="totalReceivable"
+                :open-invoice-count="openInvoiceCount"
+                :month-vat-total="monthVatTotal"
+                :month-gross-profit="monthGrossProfit"
+                :month-profit-margin="monthProfitMargin"
+                :hide-sensitive="hideSensitive"
+            />
 
-<DashboardKpi
-:today-revenue="todayRevenue"
-:today-sales="todaySales"
-:today-collection="todayCollection"
-:total-cash="totalCash"
-:total-receivable="totalReceivable"
-:open-invoice-count="openInvoiceCount"
-/>
+            <!-- Genel İstatistikler -->
+            <DashboardStats
+                :customer-count="customerCount"
+                :product-count="productCount"
+                :warehouse-count="warehouseCount"
+                :movement-count="movementCount"
+                :sale-count="saleCount"
+                :completed-sales="completedSales"
+                :cancelled-sales="cancelledSales"
+                :today-sales="todaySales"
+                :total-revenue="totalRevenue"
+                :today-revenue="todayRevenue"
+                :month-revenue="monthRevenue"
+                :average-sale="averageSale"
+                :hide-sensitive="hideSensitive"
+            />
 
-<!-- Genel İstatistikler -->
+            <!-- Hızlı İşlemler -->
+            <DashboardQuickActions />
 
-<DashboardStats
-:customer-count="customerCount"
-:product-count="productCount"
-:warehouse-count="warehouseCount"
-:movement-count="movementCount"
-:sale-count="saleCount"
-:completed-sales="completedSales"
-:cancelled-sales="cancelledSales"
-:today-sales="todaySales"
-:total-revenue="totalRevenue"
-:today-revenue="todayRevenue"
-:month-revenue="monthRevenue"
-:average-sale="averageSale"
-/>
+            <!-- Alt Widgetlar -->
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
 
-<!-- Hızlı İşlemler -->
+                <DashboardCriticalStock
+                    :products="criticalProducts"
+                />
 
-<DashboardQuickActions />
+                <DashboardLastMovements
+                    :movements="lastMovements"
+                />
 
-<!-- Alt Widgetlar -->
+            </div>
 
-<div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+            <!-- Grafik -->
+            <DashboardChart
+                :sales-chart="salesChart"
+                :hide-sensitive="hideSensitive"
+            />
 
-<DashboardCriticalStock
-:products="criticalProducts"
-/>
+        </div>
 
-<DashboardLastMovements
-:movements="lastMovements"
-/>
-
-</div>
-
-<!-- Grafik -->
-
-<DashboardChart
-    :sales-chart="salesChart"
-/>
-
-</div>
-
-</NxLayout>
+    </NxLayout>
 
 </template>

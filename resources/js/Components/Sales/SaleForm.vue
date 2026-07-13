@@ -35,6 +35,14 @@ const props = defineProps({
 
 const isEdit = computed(() => props.sale !== null);
 
+const paymentTypes = [
+    { value: 'Cash', label: 'Nakit' },
+    { value: 'Credit', label: 'Vadeli' },
+    { value: 'Card', label: 'Kart' },
+    { value: 'Bank', label: 'Havale / EFT' },
+    { value: 'Mixed', label: 'Karma' },
+];
+
 const form = useForm({
 
     customer_id: props.sale?.customer_id ?? '',
@@ -47,6 +55,12 @@ const form = useForm({
     sale_date:
         props.sale?.sale_date ??
         new Date().toISOString().substring(0, 10),
+
+    due_date:
+        props.sale?.due_date ??
+        new Date().toISOString().substring(0, 10),
+
+    payment_type: props.sale?.payment_type ?? 'Credit',
 
     notes: props.sale?.notes ?? '',
 
@@ -123,6 +137,14 @@ const grandTotal = computed(() => {
 });
 
 const submit = () => {
+    if (form.payment_type === 'Cash') {
+        form.due_date = form.sale_date;
+    }
+
+    form.items = form.items.map(item => ({
+        ...item,
+        warehouse_id: item.warehouse_id || form.warehouse_id,
+    }));
 
     if (isEdit.value) {
 
@@ -146,7 +168,7 @@ const submit = () => {
 
     <NxCard>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
 
             <NxSelect
                 label="Cari"
@@ -173,6 +195,23 @@ const submit = () => {
                 :error="form.errors.sale_date"
             />
 
+            <NxSelect
+                label="Ödeme Tipi"
+                v-model="form.payment_type"
+                :options="paymentTypes"
+                option-label="label"
+                option-value="value"
+                :error="form.errors.payment_type"
+            />
+
+            <NxInput
+                label="Vade Tarihi"
+                type="date"
+                v-model="form.due_date"
+                :disabled="form.payment_type === 'Cash'"
+                :error="form.errors.due_date"
+            />
+
         </div>
 
         <div class="mt-6">
@@ -191,6 +230,7 @@ const submit = () => {
                 :products="products"
                 :warehouses="warehouses"
                 :items="form.items"
+                :errors="form.errors"
                 @add-item="addItem"
                 @remove-item="removeItem"
             />

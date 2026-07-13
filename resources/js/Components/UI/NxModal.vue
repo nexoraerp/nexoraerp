@@ -36,14 +36,14 @@ const emit = defineEmits([
         <!-- Modal -->
 
         <div
-            class="relative bg-white rounded-2xl shadow-xl w-full max-w-md p-6"
+            class="relative bg-white rounded-2xl shadow-xl w-full max-w-md p-6 dark:border dark:border-slate-800 dark:bg-slate-950"
         >
 
-            <h2 class="text-xl font-bold mb-4">
+            <h2 class="text-xl font-bold mb-4 text-slate-900 dark:text-slate-100">
                 {{ title }}
             </h2>
 
-            <div class="text-slate-600">
+            <div class="text-slate-600 dark:text-slate-300">
 
                 <slot />
 
@@ -52,7 +52,7 @@ const emit = defineEmits([
             <div class="flex justify-end gap-3 mt-8">
 
                 <button
-                    class="px-4 py-2 rounded-xl bg-slate-200 hover:bg-slate-300"
+                    class="px-4 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700"
                     @click="$emit('close')"
                 >
                     İptal

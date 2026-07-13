@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\BelongsToCurrentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    use HasFactory;
+    use BelongsToCurrentUser, HasFactory;
 
     protected $fillable = [
+
+        'user_id',
 
         'code',
 
@@ -56,6 +59,11 @@ class Customer extends Model
         return $this->hasMany(Sale::class);
     }
 
+    public function quotes()
+    {
+        return $this->hasMany(Quote::class);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Tahsilatlar
@@ -88,5 +96,10 @@ class Customer extends Model
     {
         return $this->movements()->sum('debit')
              - $this->movements()->sum('credit');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

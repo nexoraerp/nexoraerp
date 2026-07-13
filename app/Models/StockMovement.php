@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\BelongsToCurrentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class StockMovement extends Model
 {
-    use HasFactory;
+    use BelongsToCurrentUser, HasFactory;
+
+    protected string $tenantUserColumn = 'created_by';
 
     protected $fillable = [
         'product_id',

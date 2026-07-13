@@ -5,6 +5,17 @@ import NxLayout from '@/Layouts/NxLayout.vue';
 import NxPageHeader from '@/Components/UI/NxPageHeader.vue';
 import ProductForm from '@/Components/Products/ProductForm.vue';
 
+defineProps({
+    warehouses: {
+        type: Array,
+        default: () => [],
+    },
+    definitions: {
+        type: Object,
+        default: () => ({}),
+    },
+});
+
 const form = useForm({
     code: '',
     barcode: '',
@@ -16,8 +27,9 @@ const form = useForm({
     sale_price: 0,
     vat: 20,
     stock: 0,
+    warehouse_id: '',
     min_stock: 0,
-    unit: 'Adet',
+    unit: '',
 });
 
 const submit = () => {
@@ -38,6 +50,8 @@ const submit = () => {
 
         <ProductForm
             :form="form"
+            :warehouses="warehouses"
+            :definitions="definitions"
             button-text="Kaydet"
             @submit="submit"
         />

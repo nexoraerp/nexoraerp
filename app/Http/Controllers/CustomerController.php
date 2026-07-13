@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Onboarding\CompleteFirstCustomerTaskAction;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class CustomerController extends Controller
 {
+    public function __construct(
+        protected CompleteFirstCustomerTaskAction $completeFirstCustomerTask
+    ) {
+    }
+
     public function index()
     {
         $customers = Customer::latest()->get();
@@ -64,7 +71,10 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'code' => 'required|unique:customers',
+            'code' => [
+                'required',
+                Rule::unique('customers', 'code')->where('user_id', $request->user()?->id),
+            ],
             'name' => 'required',
             'company' => 'nullable',
             'phone' => 'nullable',
@@ -75,6 +85,8 @@ class CustomerController extends Controller
         ]);
 
         Customer::create($validated);
+
+        $this->completeFirstCustomerTask->execute($request->user());
 
         return redirect()->route('customers.index');
     }
@@ -89,7 +101,12 @@ class CustomerController extends Controller
     public function update(Request $request, Customer $customer)
     {
         $validated = $request->validate([
-            'code' => 'required|unique:customers,code,' . $customer->id,
+            'code' => [
+                'required',
+                Rule::unique('customers', 'code')
+                    ->where('user_id', $request->user()?->id)
+                    ->ignore($customer->id),
+            ],
             'name' => 'required',
             'company' => 'nullable',
             'phone' => 'nullable',

@@ -17,6 +17,40 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $tenantUserId = auth()->user()?->tenantOwnerId();
+
+        $completedSaleItems = SaleItem::query()
+            ->join('sales', 'sale_items.sale_id', '=', 'sales.id')
+            ->join('products', 'sale_items.product_id', '=', 'products.id')
+            ->where('sales.status', 'Completed')
+            ->when($tenantUserId, fn ($query) => $query->where('sales.user_id', $tenantUserId));
+
+        $monthCompletedSaleItems = (clone $completedSaleItems)
+            ->whereMonth('sales.sale_date', now()->month)
+            ->whereYear('sales.sale_date', now()->year);
+
+        $monthVatTotal = (clone $monthCompletedSaleItems)
+            ->selectRaw('COALESCE(SUM(sale_items.line_total * sale_items.vat / 100), 0) as total')
+            ->value('total');
+
+        $monthGrossProfit = (clone $monthCompletedSaleItems)
+            ->selectRaw('COALESCE(SUM((sale_items.unit_price - products.purchase_price) * sale_items.quantity - sale_items.discount), 0) as total')
+            ->value('total');
+
+        $monthNetRevenue = Sale::whereMonth('sale_date', now()->month)
+            ->whereYear('sale_date', now()->year)
+            ->where('status', 'Completed')
+            ->sum('subtotal');
+
+        $monthRevenue = Sale::whereMonth('sale_date', now()->month)
+            ->whereYear('sale_date', now()->year)
+            ->where('status', 'Completed')
+            ->sum('grand_total');
+
+        $monthProfitMargin = $monthNetRevenue > 0
+            ? ($monthGrossProfit / $monthNetRevenue) * 100
+            : 0;
+
         /*
         |--------------------------------------------------------------------------
         | Kritik Stoklar
@@ -115,13 +149,16 @@ for ($i = 29; $i >= 0; $i--) {
                 ->where('status', 'Completed')
                 ->sum('grand_total'),
 
-            'monthRevenue' => Sale::whereMonth('sale_date', now()->month)
-                ->whereYear('sale_date', now()->year)
-                ->where('status', 'Completed')
-                ->sum('grand_total'),
+            'monthRevenue' => $monthRevenue,
 
             'averageSale' => Sale::where('status', 'Completed')
                 ->avg('grand_total'),
+
+            'monthVatTotal' => $monthVatTotal,
+
+            'monthGrossProfit' => $monthGrossProfit,
+
+            'monthProfitMargin' => $monthProfitMargin,
 
             /*
             |--------------------------------------------------------------------------
@@ -129,9 +166,12 @@ for ($i = 29; $i >= 0; $i--) {
             |--------------------------------------------------------------------------
             */
 
-            'topProducts' => SaleItem::selectRaw('product_id, SUM(quantity) as total_quantity')
+            'topProducts' => SaleItem::selectRaw('sale_items.product_id, SUM(sale_items.quantity) as total_quantity')
+                ->join('sales', 'sale_items.sale_id', '=', 'sales.id')
+                ->where('sales.status', 'Completed')
+                ->when($tenantUserId, fn ($query) => $query->where('sales.user_id', $tenantUserId))
                 ->with('product')
-                ->groupBy('product_id')
+                ->groupBy('sale_items.product_id')
                 ->orderByDesc('total_quantity')
                 ->take(5)
                 ->get(),

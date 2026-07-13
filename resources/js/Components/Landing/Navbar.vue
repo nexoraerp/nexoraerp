@@ -102,11 +102,12 @@ const menus = [
                         Giriş Yap
                     </Link>
 
-                    <button
+                    <Link
+                        :href="route('register')"
                         class="rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:-translate-y-0.5 hover:bg-blue-700"
                     >
-                        Demo Talep Et
-                    </button>
+                       Ücretsiz Denemeyi Başlat
+                    </Link>
 
                 </div>
 

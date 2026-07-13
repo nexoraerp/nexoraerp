@@ -37,6 +37,13 @@ onFinish: () => form.reset('password'),
 {{ status }}
 </div>
 <div class="mb-8">
+<Link
+:href="route('landing')"
+class="mb-5 inline-flex text-sm font-bold text-blue-700 hover:text-blue-800"
+>
+← Ana menüye dön
+</Link>
+
 <h1 class="text-3xl font-bold text-slate-800">
 Hoş Geldiniz
 </h1>

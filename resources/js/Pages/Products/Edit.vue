@@ -7,6 +7,14 @@ import ProductForm from '@/Components/Products/ProductForm.vue';
 
 const props = defineProps({
     product: Object,
+    warehouses: {
+        type: Array,
+        default: () => [],
+    },
+    definitions: {
+        type: Object,
+        default: () => ({}),
+    },
 });
 
 const form = useForm({
@@ -20,6 +28,7 @@ const form = useForm({
     sale_price: props.product.sale_price,
     vat: props.product.vat,
     stock: props.product.stock,
+    warehouse_id: '',
     min_stock: props.product.min_stock,
     unit: props.product.unit,
 });
@@ -42,6 +51,8 @@ const submit = () => {
 
     <ProductForm
         :form="form"
+        :warehouses="warehouses"
+        :definitions="definitions"
         button-text="Güncelle"
         @submit="submit"
     />

@@ -18,11 +18,12 @@ defineEmits(['update:modelValue']);
         class="w-full rounded-xl border border-slate-300
                py-3 pl-12 pr-4
                focus:ring-2 focus:ring-blue-200
-               focus:border-blue-500 outline-none"
+               focus:border-blue-500 outline-none
+               dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:ring-blue-900/40"
     />
 
     <div
-        class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+        class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500">
 
         🔍
 

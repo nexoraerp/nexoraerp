@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CashAccount;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class CashAccountController extends Controller
@@ -37,7 +38,10 @@ class CashAccountController extends Controller
     {
         $validated = $request->validate([
 
-            'code' => 'required|unique:cash_accounts',
+            'code' => [
+                'required',
+                Rule::unique('cash_accounts', 'code')->where('user_id', $request->user()?->id),
+            ],
 
             'name' => 'required',
 

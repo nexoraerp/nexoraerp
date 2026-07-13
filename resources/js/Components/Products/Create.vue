@@ -18,7 +18,7 @@ const form = useForm({
     vat: 20,
     stock: 0,
     min_stock: 0,
-    unit: 'Adet',
+    unit: '',
 });
 
 const submit = () => {

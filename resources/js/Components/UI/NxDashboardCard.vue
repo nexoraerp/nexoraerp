@@ -110,7 +110,7 @@ const colors = {
     <Link :href="href">
 
         <div
-            class="group bg-white rounded-3xl border border-slate-200 p-7 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer h-full"
+            class="group bg-white rounded-3xl border border-slate-200 p-7 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer h-full dark:border-slate-800 dark:bg-slate-950"
             :class="colors[color]?.border || colors.blue.border"
         >
 
@@ -126,29 +126,29 @@ const colors = {
 
             <div class="mt-6">
 
-                <h2 class="text-xl font-bold text-slate-800">
+                <h2 class="text-xl font-bold text-slate-800 dark:text-slate-100">
                     {{ title }}
                 </h2>
 
                 <div
                     v-if="count !== ''"
-                    class="text-5xl font-extrabold mt-6 text-slate-900 break-words"
+                    class="text-5xl font-extrabold mt-6 text-slate-900 break-words dark:text-slate-100"
                 >
                     {{ count }}
                 </div>
 
                 <p
                     v-if="subtitle"
-                    class="text-slate-500 mt-2"
+                    class="text-slate-500 mt-2 dark:text-slate-400"
                 >
                     {{ subtitle }}
                 </p>
 
             </div>
 
-            <div class="mt-8 pt-5 border-t flex items-center justify-between">
+            <div class="mt-8 pt-5 border-t border-slate-200 flex items-center justify-between dark:border-slate-800">
 
-                <span class="text-sm font-semibold text-slate-500">
+                <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">
                     Yönet
                 </span>
 

@@ -64,24 +64,28 @@ const paymentTypes = [
             label="Cari"
             v-model="form.customer_id"
             :options="customers"
+            :error="form.errors.customer_id"
         />
 
         <NxSelect
             label="Depo"
             v-model="form.warehouse_id"
             :options="warehouses"
+            :error="form.errors.warehouse_id"
         />
 
         <NxInput
             label="Satış Tarihi"
             type="date"
             v-model="form.sale_date"
+            :error="form.errors.sale_date"
         />
 
         <NxSelect
             label="Ödeme Tipi"
             v-model="form.payment_type"
             :options="paymentTypes"
+            :error="form.errors.payment_type"
         />
 
         <NxInput
@@ -89,6 +93,7 @@ const paymentTypes = [
             type="date"
             v-model="form.due_date"
             :disabled="form.payment_type === 'Cash'"
+            :error="form.errors.due_date"
         />
 
     </div>

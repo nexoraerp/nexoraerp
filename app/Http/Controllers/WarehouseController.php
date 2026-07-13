@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class WarehouseController extends Controller
@@ -25,7 +26,10 @@ class WarehouseController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'code' => 'required|unique:warehouses',
+            'code' => [
+                'required',
+                Rule::unique('warehouses', 'code')->where('user_id', $request->user()?->id),
+            ],
             'name' => 'required',
             'manager' => 'nullable',
             'phone' => 'nullable',
@@ -48,7 +52,12 @@ class WarehouseController extends Controller
     public function update(Request $request, Warehouse $warehouse)
     {
         $validated = $request->validate([
-            'code' => 'required|unique:warehouses,code,' . $warehouse->id,
+            'code' => [
+                'required',
+                Rule::unique('warehouses', 'code')
+                    ->where('user_id', $request->user()?->id)
+                    ->ignore($warehouse->id),
+            ],
             'name' => 'required',
             'manager' => 'nullable',
             'phone' => 'nullable',

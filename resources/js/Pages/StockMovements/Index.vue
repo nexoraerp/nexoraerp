@@ -94,6 +94,13 @@ const typeColor = (type) => {
     subtitle="Tüm stok giriş ve çıkışlarını görüntüleyin."
 >
 
+<div class="flex flex-wrap gap-3">
+<Link :href="route('stock-movements.transfer')">
+    <NxButton variant="secondary">
+        Depolar Arası Transfer
+    </NxButton>
+</Link>
+
 <Link :href="route('stock-movements.create')">
 
     <NxButton>
@@ -103,6 +110,7 @@ const typeColor = (type) => {
     </NxButton>
 
 </Link>
+</div>
 
 </NxPageHeader>
 

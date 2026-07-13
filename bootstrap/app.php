@@ -15,6 +15,13 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             \App\Http\Middleware\HandleInertiaRequests::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
+            \App\Http\Middleware\RecordAuditLog::class,
+            \App\Http\Middleware\EnsureSubUserModulePermission::class,
+            \App\Http\Middleware\EnsureLicenseAllowsWrite::class,
+        ]);
+
+        $middleware->alias([
+            'permission' => \App\Http\Middleware\CheckPermission::class,
         ]);
 
         //

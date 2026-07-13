@@ -58,6 +58,14 @@ const removeItem = (index) => {
 };
 
 const saveSale = () => {
+    if (form.payment_type === 'Cash') {
+        form.due_date = form.sale_date;
+    }
+
+    form.items = form.items.map(item => ({
+        ...item,
+        warehouse_id: item.warehouse_id || form.warehouse_id,
+    }));
 
     form.post(route('sales.store'));
 
@@ -124,6 +132,7 @@ const grandTotal = computed(() => {
                 :products="products"
                 :warehouses="warehouses"
                 :items="form.items"
+                :errors="form.errors"
                 @add-item="addItem"
                 @remove-item="removeItem"
             />

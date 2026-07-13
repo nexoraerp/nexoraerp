@@ -18,14 +18,14 @@ defineProps({
     <div>
 
         <h1
-            class="text-4xl font-bold text-slate-800">
+            class="text-4xl font-bold text-slate-800 dark:text-slate-100">
 
             {{ title }}
 
         </h1>
 
         <p
-            class="text-slate-500 mt-2">
+            class="text-slate-500 mt-2 dark:text-slate-400">
 
             {{ subtitle }}
 
