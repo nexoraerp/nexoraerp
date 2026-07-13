@@ -5,29 +5,35 @@ export const plans = [
         price: "₺1.990",
         period: "/Ay",
         featured: false,
-        button: "Başlayın",
+        button: "Ücretsiz Denemeyi Başlat",
+        routeName: "register",
         features: [
-            "Satış",
-            "Stok",
-            "Cari Hesap",
-            "Temel Raporlar"
+            "Satış, cari ve stok yönetimi",
+            "Temel tahsilat takibi",
+            "Dashboard ve temel raporlar",
+            "14 gün ücretsiz deneme"
         ]
     },
 
     {
         name: "Professional",
-        subtitle: "En çok tercih edilen",
+        subtitle: "Büyüyen ekipler için",
         price: "₺3.990",
         period: "/Ay",
         featured: true,
         button: "Hemen Başlayın",
+        routeName: "register",
         features: [
-            "Satış",
-            "Muhasebe",
-            "CRM",
-            "Üretim",
-            "E-Fatura",
-            "Stok"
+            "Gelişmiş satış ve teklif akışı",
+            "Profesyonel PDF teklif çıktısı",
+            "Kâr/Zarar ve risk analizi",
+            "Nexora AI günlük işletme özeti",
+            "Nexora AI vade ve stok uyarıları",
+            "Gider yönetimi ve depo transferi",
+            "Alt kullanıcı, rol ve yetkilendirme",
+            "İşlem geçmişi ve güvenlik kayıtları",
+            "Canlı dashboard ve gelişmiş raporlar",
+            "Öncelikli destek"
         ]
     },
 
@@ -38,12 +44,13 @@ export const plans = [
         period: "",
         featured: false,
         button: "İletişime Geç",
+        routeName: "landing.contact",
         features: [
-            "Sınırsız Kullanıcı",
-            "API",
-            "Özel Destek",
-            "Eğitim",
-            "Danışmanlık"
+            "Özel kullanıcı ve süreç yapılandırması",
+            "Kurumsal raporlama ihtiyaçları",
+            "Öncelikli destek",
+            "Eğitim ve geçiş danışmanlığı",
+            "Özel entegrasyon planlaması"
         ]
     }
 ]

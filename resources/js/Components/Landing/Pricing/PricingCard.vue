@@ -1,4 +1,6 @@
 <script setup>
+import { Link } from '@inertiajs/vue3';
+
 defineProps({
     plan: Object
 })
@@ -83,9 +85,10 @@ defineProps({
 
     <!-- Buton -->
 
-    <button
+    <Link
+        :href="plan.routeName === 'landing.contact' ? route('landing.contact') : route('register')"
         :class="[
-            'mt-8 w-full rounded-2xl py-3 text-base font-semibold transition-all duration-300',
+            'mt-8 inline-flex w-full items-center justify-center rounded-2xl py-3 text-base font-semibold transition-all duration-300',
             plan.featured
                 ? 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'
                 : 'border border-slate-300 bg-white text-slate-700 hover:border-blue-500 hover:text-blue-600'
@@ -93,7 +96,7 @@ defineProps({
 
         {{ plan.button }}
 
-    </button>
+    </Link>
 
 </div>
 

@@ -90,10 +90,15 @@ class LandingController extends Controller
                 'featured' => true,
                 'features' => [
                     'Gelişmiş satış ve teklif akışı',
+                    'Profesyonel PDF teklif çıktısı',
                     'Kâr/Zarar ve risk analizi',
-                    'Alt kullanıcı ve yetkilendirme',
-                    'Nexora AI özetleri',
+                    'Nexora AI günlük işletme özeti',
+                    'Nexora AI vade ve stok uyarıları',
                     'Gider yönetimi ve depo transferi',
+                    'Alt kullanıcı, rol ve yetkilendirme',
+                    'İşlem geçmişi ve güvenlik kayıtları',
+                    'Canlı dashboard ve gelişmiş raporlar',
+                    'Öncelikli destek',
                 ],
             ],
             [
@@ -106,9 +111,10 @@ class LandingController extends Controller
                 'featured' => false,
                 'features' => [
                     'Özel kullanıcı ve süreç yapılandırması',
+                    'Kurumsal raporlama ihtiyaçları',
                     'Öncelikli destek',
                     'Eğitim ve geçiş danışmanlığı',
-                    'Kurumsal raporlama ihtiyaçları',
+                    'Özel entegrasyon planlaması',
                 ],
             ],
         ]);

@@ -67,7 +67,7 @@ import { Link } from '@inertiajs/vue3';
                         <p
                             class="mt-4 text-slate-600"
                         >
-                            İşletmeniz için ihtiyaç duyacağınız tüm modüller tek pakette.
+                            İşletmeniz için ihtiyaç duyacağınız satış, stok, cari, finans, raporlama ve Nexora AI özellikleri tek pakette.
                         </p>
 
                         <div
@@ -122,6 +122,14 @@ import { Link } from '@inertiajs/vue3';
                             <div>✓ Kredi kartı gerektirmez</div>
 
                             <div>✓ Tüm modüller dahil</div>
+
+                            <div>✓ Nexora AI işletme özeti</div>
+
+                            <div>✓ Risk analizi ve vade uyarıları</div>
+
+                            <div>✓ PDF teklif çıktısı</div>
+
+                            <div>✓ Alt kullanıcı ve yetkilendirme</div>
 
                             <div>✓ Bulut tabanlı altyapı</div>
 
