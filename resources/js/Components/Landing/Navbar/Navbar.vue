@@ -40,13 +40,13 @@ onBeforeUnmount(() => {
                 props.variant === 'light'
                     ? (
                         scrolled
-                            ? 'border-slate-200 bg-white/95 px-8 py-4 shadow-2xl shadow-slate-950/10 backdrop-blur-3xl'
-                            : 'border-slate-200 bg-white/90 px-8 py-5 shadow-xl shadow-slate-950/10 backdrop-blur-xl'
+                            ? 'border-slate-200 bg-white/95 px-4 py-3 shadow-2xl shadow-slate-950/10 backdrop-blur-3xl sm:px-6 lg:px-8 lg:py-4'
+                            : 'border-slate-200 bg-white/90 px-4 py-3 shadow-xl shadow-slate-950/10 backdrop-blur-xl sm:px-6 lg:px-8 lg:py-5'
                     )
                     : (
                         scrolled
-                            ? 'border-white/10 bg-[#111a2d]/95 px-8 py-4 shadow-2xl shadow-black/25 backdrop-blur-3xl'
-                            : 'border-white/10 bg-[#111a2d]/88 px-8 py-5 shadow-xl shadow-black/20 backdrop-blur-xl'
+                            ? 'border-white/10 bg-[#111a2d]/95 px-4 py-3 shadow-2xl shadow-black/25 backdrop-blur-3xl sm:px-6 lg:px-8 lg:py-4'
+                            : 'border-white/10 bg-[#111a2d]/88 px-4 py-3 shadow-xl shadow-black/20 backdrop-blur-xl sm:px-6 lg:px-8 lg:py-5'
                     )
             ]"
         >
