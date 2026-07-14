@@ -1,11 +1,12 @@
 <script setup>
 import { computed, onMounted, ref, watch } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
-import { ChevronDown, LogOut, Moon, Sun } from 'lucide-vue-next';
+import { ChevronDown, LogOut, Menu, Moon, Sun } from 'lucide-vue-next';
 import OnboardingProgress from '@/Components/Onboarding/OnboardingProgress.vue';
 import DashboardExchangeRates from '@/Components/Dashboard/DashboardExchangeRates.vue';
 
 const page = usePage();
+const emit = defineEmits(['toggleMobileMenu']);
 const menuOpen = ref(false);
 const theme = ref('light');
 
@@ -120,9 +121,18 @@ watch(theme, applyTheme);
 <template>
 
 <header
-    class="sticky top-0 z-30 border-b border-slate-200 bg-white/95 px-4 py-3 shadow-sm shadow-slate-200/50 backdrop-blur-xl transition-colors dark:border-slate-800 dark:bg-slate-950/95 dark:shadow-black/20 sm:px-6 lg:h-20 lg:px-8 lg:py-0">
+    class="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-slate-200 bg-white/95 px-4 py-3 shadow-sm shadow-slate-200/50 backdrop-blur-xl transition-colors dark:border-slate-800 dark:bg-slate-950/95 dark:shadow-black/20 sm:px-6 lg:h-20 lg:px-8 lg:py-0">
 
-    <div class="flex min-w-0 items-center gap-3 sm:gap-5">
+    <div class="flex min-w-0 flex-1 items-center gap-3 sm:gap-5">
+        <button
+            type="button"
+            aria-label="Menüyü aç"
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-blue-200 hover:text-blue-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-blue-500/40 lg:hidden"
+            @click="emit('toggleMobileMenu')"
+        >
+            <Menu class="h-5 w-5" />
+        </button>
+
         <div class="min-w-0 shrink">
             <h1 class="truncate text-lg font-black text-slate-800 dark:text-slate-100 sm:text-2xl">
                 {{ pageMeta.title }}
@@ -178,9 +188,9 @@ watch(theme, applyTheme);
 
                 </div>
 
-                <div class="hidden text-left sm:block">
+                <div class="hidden min-w-0 max-w-44 text-left md:block">
 
-                    <div class="font-semibold dark:text-slate-100">
+                    <div class="truncate font-semibold dark:text-slate-100">
                         {{ user.name }}
                     </div>
 

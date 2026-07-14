@@ -1,26 +1,29 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 import { CheckCircle2, AlertCircle } from 'lucide-vue-next';
 import Sidebar from '@/Components/Navigation/Sidebar.vue';
 import Topbar from '@/Components/Navigation/Topbar.vue';
-import MobileBottomNav from '@/Components/Navigation/MobileBottomNav.vue';
 import AssistantWidget from '@/Components/AI/AssistantWidget.vue';
 
 const page = usePage();
 const aiBriefing = computed(() => page.props.aiBriefing ?? null);
 const flash = computed(() => page.props.flash ?? {});
+const mobileMenuOpen = ref(false);
 </script>
 
 <template>
 
 <div class="flex min-h-screen bg-slate-100 transition-colors dark:bg-slate-950">
 
-    <Sidebar />
+    <Sidebar
+        :mobile-open="mobileMenuOpen"
+        @close-mobile="mobileMenuOpen = false"
+    />
 
     <div class="flex-1 flex flex-col">
 
-        <Topbar />
+        <Topbar @toggle-mobile-menu="mobileMenuOpen = true" />
 
         <div
             v-if="flash.success || flash.error"
@@ -48,7 +51,7 @@ const flash = computed(() => page.props.flash ?? {});
             </div>
         </div>
 
-        <main class="flex-1 px-4 pb-28 pt-4 sm:px-6 sm:pt-6 lg:p-8">
+        <main class="flex-1 px-4 pb-6 pt-4 sm:px-6 sm:pb-8 sm:pt-6 lg:p-8">
 
             <slot />
 
@@ -57,7 +60,6 @@ const flash = computed(() => page.props.flash ?? {});
     </div>
 
     <AssistantWidget :briefing="aiBriefing" />
-    <MobileBottomNav />
 
 </div>
 

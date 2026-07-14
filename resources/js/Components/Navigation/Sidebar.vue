@@ -21,9 +21,19 @@ import {
     LifeBuoy,
     LockKeyhole,
     PhoneCall,
+    X,
 } from 'lucide-vue-next';
 
 const page = usePage();
+
+defineProps({
+    mobileOpen: {
+        type: Boolean,
+        default: false,
+    },
+});
+
+const emit = defineEmits(['closeMobile']);
 
 const canSeeAdmin = computed(() => page.props.auth?.user?.role === 'admin');
 const user = computed(() => page.props.auth?.user ?? {});
@@ -265,17 +275,39 @@ const isActive = (item) => {
 
 <template>
 
-<aside class="hidden w-72 bg-slate-900 text-white h-screen flex-col shadow-2xl lg:flex">
+<div
+    v-if="mobileOpen"
+    class="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-sm lg:hidden"
+    @click="emit('closeMobile')"
+/>
 
-    <div class="px-8 py-8 border-b border-slate-800">
+<aside
+    :class="[
+        'fixed inset-y-0 left-0 z-50 flex h-screen w-72 flex-col bg-slate-900 text-white shadow-2xl transition-transform duration-300 lg:sticky lg:top-0 lg:z-auto lg:translate-x-0',
+        mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+    ]"
+>
 
-        <h1 class="text-3xl font-black tracking-[0.30em]">
-            NE<span class="text-blue-500">X</span>ORA
-        </h1>
+    <div class="flex items-start justify-between gap-4 border-b border-slate-800 px-8 py-8">
 
-        <p class="text-slate-400 text-sm mt-2">
-            Modern Business ERP
-        </p>
+        <div>
+            <h1 class="text-3xl font-black tracking-[0.30em]">
+                NE<span class="text-blue-500">X</span>ORA
+            </h1>
+
+            <p class="text-slate-400 text-sm mt-2">
+                Modern Business ERP
+            </p>
+        </div>
+
+        <button
+            type="button"
+            aria-label="Menüyü kapat"
+            class="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-700 text-slate-300 transition hover:border-slate-500 hover:text-white lg:hidden"
+            @click="emit('closeMobile')"
+        >
+            <X class="h-5 w-5" />
+        </button>
 
     </div>
 
@@ -309,6 +341,7 @@ const isActive = (item) => {
                                 ? 'bg-blue-600 text-white shadow-lg'
                                 : 'text-slate-300 hover:bg-slate-800 hover:text-white'
                         ]"
+                        @click="emit('closeMobile')"
                     >
 
                         <component
