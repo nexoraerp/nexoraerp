@@ -283,7 +283,7 @@ const isActive = (item) => {
 
 <aside
     :class="[
-        'fixed inset-y-0 left-0 z-50 flex h-screen w-72 flex-col bg-slate-900 text-white shadow-2xl transition-transform duration-300 lg:sticky lg:top-0 lg:z-auto lg:translate-x-0',
+        'fixed inset-y-0 left-0 z-50 flex h-screen w-72 shrink-0 flex-col bg-slate-900 text-white shadow-2xl transition-transform duration-300 lg:sticky lg:top-0 lg:z-auto lg:translate-x-0',
         mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
     ]"
 >
@@ -311,7 +311,7 @@ const isActive = (item) => {
 
     </div>
 
-    <nav class="flex-1 overflow-y-auto px-4 py-6">
+    <nav class="flex-1 overflow-y-auto px-4 py-6 pb-10">
 
         <div
             v-for="group in groups"

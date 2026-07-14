@@ -38,13 +38,13 @@ const updateAmount = (event) => {
 
 <div
     @click="toggle"
-    class="rounded-2xl border-2 cursor-pointer transition-all duration-300 p-6 hover:shadow-lg"
+    class="cursor-pointer rounded-2xl border-2 p-4 transition-all duration-300 hover:shadow-lg sm:p-6"
     :class="props.selected
         ? 'border-blue-600 bg-blue-50 shadow-md dark:bg-blue-950/30 dark:border-blue-500'
         : 'border-slate-200 bg-white hover:border-blue-300 dark:border-slate-800 dark:bg-slate-950 dark:hover:border-blue-500'"
 >
 
-    <div class="flex items-start justify-between">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
 
         <div>
 
@@ -75,7 +75,7 @@ const updateAmount = (event) => {
 
     </div>
 
-    <div class="grid grid-cols-3 gap-6 mt-8">
+    <div class="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:grid-cols-3 sm:gap-6">
 
         <div>
 
@@ -116,7 +116,7 @@ const updateAmount = (event) => {
     </div>
 
     <div
-        class="mt-8 pt-5 border-t border-slate-200 flex items-center justify-between dark:border-slate-800"
+        class="mt-6 flex items-center justify-between border-t border-slate-200 pt-5 dark:border-slate-800 sm:mt-8"
     >
 
         <span class="text-slate-500 dark:text-slate-400">

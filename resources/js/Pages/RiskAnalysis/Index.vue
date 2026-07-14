@@ -99,7 +99,7 @@ const riskLabels = {
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm font-semibold text-slate-500">Takip Tutarı</p>
-                            <h2 class="mt-2 text-3xl font-black text-slate-950">{{ money(dueReminders.total_amount) }}</h2>
+                            <h2 class="mt-2 break-words text-3xl font-black text-slate-950 dark:text-slate-100">{{ money(dueReminders.total_amount) }}</h2>
                         </div>
                         <CircleDollarSign class="h-8 w-8 text-blue-700" />
                     </div>
@@ -109,7 +109,7 @@ const riskLabels = {
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm font-semibold text-slate-500">Yüksek Risk</p>
-                            <h2 class="mt-2 text-3xl font-black text-slate-950">{{ highRiskCount }}</h2>
+                            <h2 class="mt-2 text-3xl font-black text-slate-950 dark:text-slate-100">{{ highRiskCount }}</h2>
                         </div>
                         <AlertTriangle class="h-8 w-8 text-red-700" />
                     </div>
@@ -120,7 +120,7 @@ const riskLabels = {
                 <NxCard class="xl:col-span-2">
                     <div class="mb-5 flex items-center justify-between">
                         <div>
-                            <h2 class="text-xl font-bold text-slate-950">Vade Riskleri</h2>
+                            <h2 class="text-xl font-bold text-slate-950 dark:text-slate-100">Vade Riskleri</h2>
                             <p class="text-sm text-slate-500">Nexora AI vadesi geçen ve yaklaşan tahsilatları önceliklendirir.</p>
                         </div>
                         <Activity class="h-6 w-6 text-blue-700" />
@@ -130,11 +130,11 @@ const riskLabels = {
                         <div
                             v-for="item in dueItems"
                             :key="item.sale_id"
-                            class="flex flex-col gap-3 rounded-2xl border border-slate-100 p-4 md:flex-row md:items-center md:justify-between"
+                            class="flex flex-col gap-3 rounded-2xl border border-slate-100 p-4 dark:border-slate-800 md:flex-row md:items-center md:justify-between"
                         >
                             <div>
                                 <div class="flex flex-wrap items-center gap-2">
-                                    <span class="font-bold text-slate-950">{{ item.sale_no }}</span>
+                                    <span class="font-bold text-slate-950 dark:text-slate-100">{{ item.sale_no }}</span>
                                     <span
                                         class="rounded-full px-3 py-1 text-xs font-bold"
                                         :class="statusClasses[item.status]"
@@ -142,10 +142,10 @@ const riskLabels = {
                                         {{ statusLabels[item.status] }}
                                     </span>
                                 </div>
-                                <p class="mt-2 text-sm text-slate-600">{{ item.message }}</p>
+                                <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">{{ item.message }}</p>
                             </div>
                             <div class="shrink-0 text-left md:text-right">
-                                <div class="font-black text-slate-950">{{ money(item.remaining_total) }}</div>
+                                <div class="font-black text-slate-950 dark:text-slate-100">{{ money(item.remaining_total) }}</div>
                                 <div class="text-sm text-slate-500">{{ item.due_date }}</div>
                             </div>
                         </div>
@@ -159,7 +159,7 @@ const riskLabels = {
                 <NxCard>
                     <div class="mb-5 flex items-center justify-between">
                         <div>
-                            <h2 class="text-xl font-bold text-slate-950">Risk Sinyalleri</h2>
+                            <h2 class="text-xl font-bold text-slate-950 dark:text-slate-100">Risk Sinyalleri</h2>
                             <p class="text-sm text-slate-500">Tahsilat ve stok riskleri.</p>
                         </div>
                         <TrendingUp class="h-6 w-6 text-slate-700" />

@@ -81,8 +81,8 @@ const statusClass = (status) => {
     <NxCard>
         <div class="mb-5 flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
             <div>
-                <h2 class="text-xl font-bold text-slate-950">Gelişmiş Rapor Tablosu</h2>
-                <p class="text-sm text-slate-500">Satış, KDV, kar ve ödeme durumunu belge bazında izleyin.</p>
+                <h2 class="text-xl font-bold text-slate-950 dark:text-slate-100">Gelişmiş Rapor Tablosu</h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Satış, KDV, kar ve ödeme durumunu belge bazında izleyin.</p>
             </div>
 
             <div class="w-full xl:w-80">
@@ -95,12 +95,12 @@ const statusClass = (status) => {
 
         <div class="overflow-x-auto">
             <table class="w-full min-w-[1020px]">
-                <thead class="border-b bg-slate-50">
+                <thead class="border-b bg-slate-50 dark:border-slate-800 dark:bg-slate-900">
                     <tr>
                         <th
                             v-for="column in columns"
                             :key="column.key"
-                            class="px-4 py-4 text-sm font-bold text-slate-600"
+                            class="px-4 py-4 text-sm font-bold text-slate-600 dark:text-slate-300"
                             :class="{
                                 'text-left': column.align === 'left',
                                 'text-right': column.align === 'right',
@@ -117,7 +117,7 @@ const statusClass = (status) => {
                             </button>
                         </th>
 
-                        <th class="px-4 py-4 text-right text-sm font-bold text-slate-600">İşlemler</th>
+                        <th class="px-4 py-4 text-right text-sm font-bold text-slate-600 dark:text-slate-300">İşlemler</th>
                     </tr>
                 </thead>
 
@@ -125,15 +125,15 @@ const statusClass = (status) => {
                     <tr
                         v-for="row in filteredRows"
                         :key="row.no"
-                        class="border-b transition hover:bg-slate-50"
+                        class="border-b border-slate-100 transition hover:bg-slate-50 dark:border-slate-800 dark:hover:bg-slate-900"
                     >
-                        <td class="px-4 py-4 font-semibold text-slate-700">{{ row.date }}</td>
+                        <td class="px-4 py-4 font-semibold text-slate-700 dark:text-slate-300">{{ row.date }}</td>
                         <td class="px-4 py-4 font-bold text-blue-700">{{ row.no }}</td>
-                        <td class="px-4 py-4">{{ row.customer }}</td>
-                        <td class="px-4 py-4 text-right font-bold">₺{{ formatMoney(row.sales) }}</td>
-                        <td class="px-4 py-4 text-right">₺{{ formatMoney(row.vat) }}</td>
+                        <td class="px-4 py-4 text-slate-800 dark:text-slate-200">{{ row.customer }}</td>
+                        <td class="px-4 py-4 text-right font-bold text-slate-900 dark:text-slate-100">₺{{ formatMoney(row.sales) }}</td>
+                        <td class="px-4 py-4 text-right text-slate-700 dark:text-slate-300">₺{{ formatMoney(row.vat) }}</td>
                         <td class="px-4 py-4 text-right font-bold text-emerald-700">₺{{ formatMoney(row.profit) }}</td>
-                        <td class="px-4 py-4 text-center">{{ row.payment }}</td>
+                        <td class="px-4 py-4 text-center text-slate-700 dark:text-slate-300">{{ row.payment }}</td>
                         <td class="px-4 py-4 text-center">
                             <span
                                 class="rounded-full px-3 py-1 text-xs font-bold"
@@ -146,7 +146,7 @@ const statusClass = (status) => {
                             <div class="flex justify-end gap-2">
                                 <Link
                                     :href="row.show_url"
-                                    class="inline-flex items-center justify-center rounded-2xl bg-transparent px-4 py-2 text-sm font-semibold text-slate-700 transition-all duration-300 hover:bg-slate-100"
+                                    class="inline-flex items-center justify-center rounded-2xl bg-transparent px-4 py-2 text-sm font-semibold text-slate-700 transition-all duration-300 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
                                 >
                                     <Eye class="h-4 w-4" />
                                 </Link>
@@ -165,13 +165,13 @@ const statusClass = (status) => {
 
             <div
                 v-if="filteredRows.length === 0"
-                class="rounded-b-2xl border-x border-b border-slate-100 bg-slate-50 p-8 text-center text-sm text-slate-500"
+                class="rounded-b-2xl border-x border-b border-slate-100 bg-slate-50 p-8 text-center text-sm text-slate-500 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400"
             >
                 Seçili filtrelere uygun tamamlanan satış kaydı bulunmuyor.
             </div>
         </div>
 
-        <div class="mt-5 flex items-center justify-between text-sm text-slate-500">
+        <div class="mt-5 flex flex-col gap-2 text-sm text-slate-500 dark:text-slate-400 sm:flex-row sm:items-center sm:justify-between">
             <span>{{ filteredRows.length }} kayıt gösteriliyor</span>
             <span>Sıralama: {{ sortKey }} / {{ sortDirection === 'asc' ? 'Artan' : 'Azalan' }}</span>
         </div>

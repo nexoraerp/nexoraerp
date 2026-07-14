@@ -33,12 +33,12 @@ const items = computed(() => props.items.map((item, index) => ({
         <div
             v-for="item in items"
             :key="item.label"
-            class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
+            class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-6"
         >
             <div class="flex items-start justify-between gap-4">
                 <div>
-                    <p class="text-sm font-semibold text-slate-500">{{ item.label }}</p>
-                    <h3 class="mt-3 text-3xl font-black tracking-tight text-slate-950">{{ item.value }}</h3>
+                    <p class="text-sm font-semibold text-slate-500 dark:text-slate-400">{{ item.label }}</p>
+                    <h3 class="mt-3 break-words text-3xl font-black tracking-tight text-slate-950 dark:text-slate-100">{{ item.value }}</h3>
                 </div>
 
                 <div
@@ -52,7 +52,7 @@ const items = computed(() => props.items.map((item, index) => ({
                 </div>
             </div>
 
-            <p class="mt-4 border-t border-slate-100 pt-4 text-sm text-slate-500">{{ item.hint }}</p>
+            <p class="mt-4 border-t border-slate-100 pt-4 text-sm text-slate-500 dark:border-slate-800 dark:text-slate-400">{{ item.hint }}</p>
         </div>
     </div>
 </template>

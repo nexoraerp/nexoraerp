@@ -187,7 +187,7 @@ const updatePassword = () => {
                     :key="section.key"
                     :href="section.href"
                     class="rounded-2xl border p-4 transition"
-                    :class="activeSection === section.key ? 'border-blue-200 bg-blue-50 text-blue-900' : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'"
+                    :class="activeSection === section.key ? 'border-blue-200 bg-blue-50 text-blue-900 dark:border-blue-500/40 dark:bg-blue-950/40 dark:text-blue-100' : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-slate-700'"
                 >
                     <div class="font-black">{{ section.title }}</div>
                     <p class="mt-1 text-sm opacity-80">{{ section.subtitle }}</p>

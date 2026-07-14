@@ -116,12 +116,18 @@ onMounted(() => {
 });
 
 watch(theme, applyTheme);
+watch(
+    () => page.url,
+    () => {
+        menuOpen.value = false;
+    }
+);
 </script>
 
 <template>
 
 <header
-    class="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-slate-200 bg-white/95 px-4 py-3 shadow-sm shadow-slate-200/50 backdrop-blur-xl transition-colors dark:border-slate-800 dark:bg-slate-950/95 dark:shadow-black/20 sm:px-6 lg:h-20 lg:px-8 lg:py-0">
+    class="sticky top-0 z-30 flex min-h-16 items-center justify-between gap-3 border-b border-slate-200 bg-white/95 px-4 py-3 shadow-sm shadow-slate-200/50 backdrop-blur-xl transition-colors dark:border-slate-800 dark:bg-slate-950/95 dark:shadow-black/20 sm:px-6 lg:h-20 lg:px-8 lg:py-0">
 
     <div class="flex min-w-0 flex-1 items-center gap-3 sm:gap-5">
         <button
@@ -133,7 +139,7 @@ watch(theme, applyTheme);
             <Menu class="h-5 w-5" />
         </button>
 
-        <div class="min-w-0 shrink">
+        <div class="min-w-0 flex-1">
             <h1 class="truncate text-lg font-black text-slate-800 dark:text-slate-100 sm:text-2xl">
                 {{ pageMeta.title }}
             </h1>
@@ -179,7 +185,7 @@ watch(theme, applyTheme);
             <button
                 type="button"
                 @click="menuOpen = !menuOpen"
-                class="flex items-center gap-2 rounded-2xl px-1 py-1 transition hover:bg-slate-50 dark:hover:bg-slate-900 sm:gap-3 sm:px-3 sm:py-2"
+                class="flex min-w-0 items-center gap-2 rounded-2xl px-1 py-1 transition hover:bg-slate-50 dark:hover:bg-slate-900 sm:gap-3 sm:px-3 sm:py-2"
             >
                 <div
                     class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 font-bold text-white sm:h-11 sm:w-11">
@@ -200,16 +206,16 @@ watch(theme, applyTheme);
 
                 </div>
 
-                <ChevronDown class="h-4 w-4 text-slate-400" />
+                <ChevronDown class="hidden h-4 w-4 shrink-0 text-slate-400 sm:block" />
             </button>
 
             <div
                 v-if="menuOpen"
                 class="absolute right-0 z-50 mt-3 w-[calc(100vw-2rem)] max-w-80 rounded-2xl border border-slate-200 bg-white p-4 shadow-2xl dark:border-slate-800 dark:bg-slate-950"
             >
-                <div class="border-b border-slate-100 pb-4">
-                    <div class="font-black text-slate-950 dark:text-slate-100">{{ user.name }}</div>
-                    <div class="text-sm text-slate-500">{{ user.email }}</div>
+                <div class="border-b border-slate-100 pb-4 dark:border-slate-800">
+                    <div class="break-words font-black text-slate-950 dark:text-slate-100">{{ user.name }}</div>
+                    <div class="break-words text-sm text-slate-500 dark:text-slate-400">{{ user.email }}</div>
                 </div>
 
                 <div
@@ -227,24 +233,24 @@ watch(theme, applyTheme);
                     </div>
 
                     <div class="grid grid-cols-2 gap-3 text-sm">
-                        <div class="rounded-xl bg-slate-50 p-3 dark:bg-slate-900">
+                        <div class="min-w-0 rounded-xl bg-slate-50 p-3 dark:bg-slate-900">
                             <div class="text-xs font-bold text-slate-500">Lisans Başlangıç</div>
-                            <div class="mt-1 font-black text-slate-950 dark:text-slate-100">{{ license.license_started_at ?? '-' }}</div>
+                            <div class="mt-1 break-words font-black text-slate-950 dark:text-slate-100">{{ license.license_started_at ?? '-' }}</div>
                         </div>
 
-                        <div class="rounded-xl bg-slate-50 p-3 dark:bg-slate-900">
+                        <div class="min-w-0 rounded-xl bg-slate-50 p-3 dark:bg-slate-900">
                             <div class="text-xs font-bold text-slate-500">Lisans Bitiş</div>
-                            <div class="mt-1 font-black text-slate-950 dark:text-slate-100">{{ license.license_ends_at ?? '-' }}</div>
+                            <div class="mt-1 break-words font-black text-slate-950 dark:text-slate-100">{{ license.license_ends_at ?? '-' }}</div>
                         </div>
 
-                        <div class="rounded-xl bg-slate-50 p-3 dark:bg-slate-900">
+                        <div class="min-w-0 rounded-xl bg-slate-50 p-3 dark:bg-slate-900">
                             <div class="text-xs font-bold text-slate-500">Deneme Bitiş</div>
-                            <div class="mt-1 font-black text-slate-950 dark:text-slate-100">{{ license.trial_ends_at ?? '-' }}</div>
+                            <div class="mt-1 break-words font-black text-slate-950 dark:text-slate-100">{{ license.trial_ends_at ?? '-' }}</div>
                         </div>
 
-                        <div class="rounded-xl bg-slate-50 p-3 dark:bg-slate-900">
+                        <div class="min-w-0 rounded-xl bg-slate-50 p-3 dark:bg-slate-900">
                             <div class="text-xs font-bold text-slate-500">Kalan Süre</div>
-                            <div class="mt-1 font-black text-slate-950 dark:text-slate-100">
+                            <div class="mt-1 break-words font-black text-slate-950 dark:text-slate-100">
                                 {{ license.remaining_days_label ?? `${Math.floor(Number(license.remaining_days ?? 0))} gün` }}
                             </div>
                         </div>
@@ -255,7 +261,7 @@ watch(theme, applyTheme);
                     :href="route('logout')"
                     method="post"
                     as="button"
-                    class="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm font-black text-red-700 transition hover:bg-red-100"
+                    class="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm font-black text-red-700 transition hover:bg-red-100 dark:border-red-500/20 dark:bg-red-950/30 dark:text-red-300 dark:hover:bg-red-950/50"
                 >
                     <LogOut class="h-4 w-4" />
                     Çıkış

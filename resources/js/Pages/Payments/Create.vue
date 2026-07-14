@@ -214,7 +214,7 @@ form.post(route('payments.store'));
 
 <NxLayout>
 
-<div class="max-w-7xl mx-auto">
+<div class="mx-auto max-w-7xl">
 
 <div class="mb-8">
 
@@ -232,7 +232,7 @@ Açık faturaları seçerek tahsilat oluşturabilirsiniz.
 
 </div>
 
-<div class="flex gap-8 items-start">
+<div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-8">
 
 <PaymentSidebar
 
@@ -246,7 +246,7 @@ Açık faturaları seçerek tahsilat oluşturabilirsiniz.
 
 />
 
-<div class="flex-1 space-y-6">
+<div class="min-w-0 flex-1 space-y-6">
 
 <PaymentInvoiceList
 

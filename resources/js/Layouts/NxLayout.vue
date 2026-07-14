@@ -14,14 +14,14 @@ const mobileMenuOpen = ref(false);
 
 <template>
 
-<div class="flex min-h-screen bg-slate-100 transition-colors dark:bg-slate-950">
+<div class="flex min-h-screen overflow-x-hidden bg-slate-100 transition-colors dark:bg-slate-950">
 
     <Sidebar
         :mobile-open="mobileMenuOpen"
         @close-mobile="mobileMenuOpen = false"
     />
 
-    <div class="flex-1 flex flex-col">
+    <div class="flex min-w-0 flex-1 flex-col">
 
         <Topbar @toggle-mobile-menu="mobileMenuOpen = true" />
 
@@ -51,7 +51,7 @@ const mobileMenuOpen = ref(false);
             </div>
         </div>
 
-        <main class="flex-1 px-4 pb-6 pt-4 sm:px-6 sm:pb-8 sm:pt-6 lg:p-8">
+        <main class="min-w-0 flex-1 px-4 pb-6 pt-4 sm:px-6 sm:pb-8 sm:pt-6 lg:p-8">
 
             <slot />
 

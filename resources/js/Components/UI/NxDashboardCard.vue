@@ -110,7 +110,7 @@ const colors = {
     <Link :href="href">
 
         <div
-            class="group h-full cursor-pointer rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-300 hover:shadow-2xl dark:border-slate-800 dark:bg-slate-950 sm:p-7 lg:hover:-translate-y-2"
+            class="group h-full cursor-pointer rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-300 hover:shadow-2xl dark:border-slate-800 dark:bg-slate-900 sm:p-7 lg:hover:-translate-y-2"
             :class="colors[color]?.border || colors.blue.border"
         >
 
@@ -126,7 +126,7 @@ const colors = {
 
             <div class="mt-4 sm:mt-6">
 
-                <h2 class="text-sm font-black text-slate-800 dark:text-slate-100 sm:text-xl">
+                <h2 class="break-words text-sm font-black text-slate-800 dark:text-slate-100 sm:text-xl">
                     {{ title }}
                 </h2>
 

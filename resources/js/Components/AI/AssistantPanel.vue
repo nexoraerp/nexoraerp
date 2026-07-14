@@ -96,7 +96,7 @@ async function sendMessage(message) {
 
 <template>
 
-<div class="flex h-full flex-col">
+<div class="flex h-full min-h-0 flex-col">
 
     <AssistantHeader />
 
@@ -107,11 +107,11 @@ async function sendMessage(message) {
 
     <div
         v-if="briefing?.detail_route"
-        class="border-t border-slate-100 px-5 py-3"
+        class="border-t border-slate-100 px-4 py-3 dark:border-slate-800 sm:px-5"
     >
         <Link
             :href="briefing.detail_route"
-            class="flex w-full items-center justify-center rounded-xl bg-slate-950 px-4 py-3 text-sm font-bold text-white hover:bg-slate-800"
+            class="flex w-full items-center justify-center rounded-xl bg-slate-950 px-4 py-3 text-sm font-bold text-white hover:bg-slate-800 dark:bg-blue-600 dark:hover:bg-blue-700"
         >
             Detayları Gör
         </Link>

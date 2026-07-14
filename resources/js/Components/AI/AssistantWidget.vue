@@ -16,23 +16,23 @@ const open = ref(false)
 
 <template>
 
-<div class="fixed bottom-8 right-8 z-[999]">
+<div class="fixed bottom-4 right-4 z-[999] sm:bottom-6 sm:right-6 lg:bottom-8 lg:right-8">
 
     <!-- AI Butonu -->
 
     <button
         v-if="!open"
         @click="open=true"
-        class="group relative flex h-16 w-16 items-center justify-center rounded-full
+        class="group relative flex h-14 w-14 items-center justify-center rounded-full
                bg-gradient-to-r from-blue-600 to-indigo-600
                text-white shadow-2xl transition-all duration-300
-               hover:scale-110"
+               hover:scale-105 sm:h-16 sm:w-16"
     >
 
-        <Bot class="h-8 w-8" />
+        <Bot class="h-7 w-7 sm:h-8 sm:w-8" />
 
         <span
-            class="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-green-500 ring-4 ring-white animate-pulse"
+            class="absolute -right-0.5 -top-0.5 h-4 w-4 animate-pulse rounded-full bg-green-500 ring-4 ring-white dark:ring-slate-950"
         />
 
     </button>
@@ -50,14 +50,14 @@ const open = ref(false)
 
         <div
             v-if="open"
-            class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_30px_80px_rgba(15,23,42,.18)] w-[430px] h-[720px]"
+            class="h-[min(720px,calc(100vh-2rem))] w-[calc(100vw-2rem)] overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_30px_80px_rgba(15,23,42,.18)] dark:border-slate-800 dark:bg-slate-950 sm:w-[430px]"
         >
 
             <AssistantPanel :briefing="briefing" />
 
             <button
                 @click="open=false"
-                class="absolute top-4 right-4 rounded-full bg-white p-2 shadow hover:bg-slate-100"
+                class="absolute right-4 top-4 rounded-full bg-white p-2 text-slate-700 shadow hover:bg-slate-100 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
             >
 
                 <X class="h-4 w-4"/>

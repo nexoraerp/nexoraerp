@@ -33,10 +33,10 @@ const total = () => {
 <template>
 
 <div
-    class="sticky bottom-0 bg-white border border-slate-200 rounded-2xl shadow-xl p-6 dark:border-slate-800 dark:bg-slate-950"
+    class="sticky bottom-0 rounded-2xl border border-slate-200 bg-white p-4 shadow-xl dark:border-slate-800 dark:bg-slate-950 sm:p-6"
 >
 
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
         <div>
 
@@ -54,7 +54,7 @@ const total = () => {
 
         </div>
 
-        <div class="text-center">
+        <div class="text-left sm:text-center">
 
             <p class="text-slate-500 text-sm dark:text-slate-400">
 
@@ -62,7 +62,7 @@ const total = () => {
 
             </p>
 
-            <h2 class="text-4xl font-extrabold text-blue-600 mt-1">
+            <h2 class="mt-1 text-3xl font-extrabold text-blue-600 sm:text-4xl">
 
                 ₺{{ total().toLocaleString('tr-TR', {
 
@@ -77,7 +77,7 @@ const total = () => {
         <button
             @click="emit('save')"
             :disabled="props.selectedSales.length === 0"
-            class="px-8 py-4 rounded-xl text-white font-bold transition"
+            class="rounded-xl px-6 py-4 font-bold text-white transition sm:px-8"
             :class="props.selectedSales.length === 0
                 ? 'bg-slate-400 cursor-not-allowed'
                 : 'bg-blue-600 hover:bg-blue-700'"

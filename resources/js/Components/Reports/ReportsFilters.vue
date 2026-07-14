@@ -65,15 +65,15 @@ const apply = () => {
 
 <template>
     <NxCard>
-        <div class="mb-5 flex items-center justify-between">
+        <div class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div class="flex items-center gap-3">
                 <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-blue-700">
                     <SlidersHorizontal class="h-5 w-5" />
                 </div>
 
                 <div>
-                    <h2 class="text-xl font-bold text-slate-900">Rapor Filtreleri</h2>
-                    <p class="text-sm text-slate-500">Dönem, depo, cari ve ürün kırılımlarını daraltın.</p>
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-slate-100">Rapor Filtreleri</h2>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">Dönem, depo, cari ve ürün kırılımlarını daraltın.</p>
                 </div>
             </div>
 
@@ -180,7 +180,7 @@ const apply = () => {
                 />
             </div>
 
-            <div class="flex items-end gap-3 lg:col-span-4">
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-end lg:col-span-4">
                 <NxButton
                     type="button"
                     block

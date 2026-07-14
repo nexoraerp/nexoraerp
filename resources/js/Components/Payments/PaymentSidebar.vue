@@ -28,7 +28,7 @@ const props = defineProps({
 
 <template>
 
-<div class="w-96 space-y-6">
+<div class="w-full space-y-6 lg:w-96 lg:shrink-0">
 
     <!-- Cari Seçimi -->
 
