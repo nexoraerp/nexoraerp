@@ -5,13 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\SupportTicket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
+use Throwable;
 
 class SupportTicketController extends Controller
 {
     public function index(Request $request)
     {
+        if (! Schema::hasTable('support_tickets')) {
+            return Inertia::render('SupportTickets/Index', [
+                'tickets' => [],
+                'summary' => [
+                    'total' => 0,
+                    'open' => 0,
+                    'in_progress' => 0,
+                    'resolved' => 0,
+                ],
+                'options' => $this->options(),
+                'isAdminView' => false,
+            ]);
+        }
+
         $tickets = SupportTicket::query()
             ->with('user')
             ->forTenant($request->user())
@@ -35,6 +51,20 @@ class SupportTicketController extends Controller
     public function adminIndex(Request $request)
     {
         abort_unless($request->user()?->role === 'admin', 403);
+
+        if (! Schema::hasTable('support_tickets')) {
+            return Inertia::render('SupportTickets/Index', [
+                'tickets' => [],
+                'summary' => [
+                    'total' => 0,
+                    'open' => 0,
+                    'in_progress' => 0,
+                    'resolved' => 0,
+                ],
+                'options' => $this->options(),
+                'isAdminView' => true,
+            ]);
+        }
 
         $tickets = SupportTicket::query()
             ->with(['user', 'tenantOwner'])
@@ -64,15 +94,31 @@ class SupportTicketController extends Controller
             'message' => ['required', 'string', 'max:5000'],
         ]);
 
-        DB::transaction(function () use ($request, $validated) {
-            SupportTicket::create([
-                ...$validated,
-                'user_id' => $request->user()->id,
-                'tenant_user_id' => $request->user()->tenantOwnerId(),
-                'ticket_no' => $this->generateTicketNo(),
-                'status' => 'open',
-            ]);
-        });
+        if (! Schema::hasTable('support_tickets')) {
+            return back()->with(
+                'error',
+                'Destek talebi altyapısı henüz hazırlanmadı. Lütfen canlıda migration işlemini çalıştırın.'
+            );
+        }
+
+        try {
+            DB::transaction(function () use ($request, $validated) {
+                SupportTicket::create([
+                    ...$validated,
+                    'user_id' => $request->user()->id,
+                    'tenant_user_id' => $request->user()->tenantOwnerId(),
+                    'ticket_no' => $this->generateTicketNo(),
+                    'status' => 'open',
+                ]);
+            });
+        } catch (Throwable $exception) {
+            report($exception);
+
+            return back()->with(
+                'error',
+                'Destek talebiniz kaydedilemedi. Lütfen daha sonra tekrar deneyin.'
+            );
+        }
 
         return back()->with('success', 'Destek talebiniz oluşturuldu. Ekibimiz admin panelinden takip edecek.');
     }

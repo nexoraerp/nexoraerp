@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\LeadRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -14,6 +15,19 @@ class LeadRequestController extends Controller
     public function adminIndex(Request $request)
     {
         abort_unless($request->user()?->role === 'admin', 403);
+
+        if (! Schema::hasTable('lead_requests')) {
+            return Inertia::render('LeadRequests/Index', [
+                'leads' => [],
+                'summary' => [
+                    'total' => 0,
+                    'new' => 0,
+                    'contacted' => 0,
+                    'closed' => 0,
+                ],
+                'statuses' => $this->statuses(),
+            ]);
+        }
 
         $leads = LeadRequest::query()
             ->latest()
@@ -41,6 +55,13 @@ class LeadRequestController extends Controller
             'email' => ['nullable', 'email', 'max:255'],
             'message' => ['nullable', 'string', 'max:2000'],
         ]);
+
+        if (! Schema::hasTable('lead_requests')) {
+            return back()->with(
+                'error',
+                'Bilgi talebi altyapısı henüz hazırlanmadı. Lütfen canlıda migration işlemini çalıştırın.'
+            );
+        }
 
         try {
             LeadRequest::create([

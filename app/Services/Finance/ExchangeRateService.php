@@ -15,11 +15,11 @@ class ExchangeRateService
     {
         $cacheKey = 'finance.exchange_rates.tcmb.latest';
 
-        if (Cache::has($cacheKey)) {
-            return Cache::get($cacheKey);
-        }
-
         try {
+            if (Cache::has($cacheKey)) {
+                return Cache::get($cacheKey);
+            }
+
             $response = Http::timeout(5)->get(self::TCMB_URL);
 
             if (! $response->successful()) {
@@ -40,11 +40,17 @@ class ExchangeRateService
                 'items' => $this->currencies($xml),
             ];
 
-            Cache::put($cacheKey, $rates, now()->addMinutes(30));
+            try {
+                Cache::put($cacheKey, $rates, now()->addMinutes(30));
+            } catch (Throwable $exception) {
+                report($exception);
+            }
 
             return $rates;
-        } catch (Throwable) {
-            return $this->cacheUnavailable($cacheKey);
+        } catch (Throwable $exception) {
+            report($exception);
+
+            return $this->unavailable();
         }
     }
 
@@ -95,7 +101,11 @@ class ExchangeRateService
     {
         $rates = $this->unavailable();
 
-        Cache::put($cacheKey, $rates, now()->addMinutes(5));
+        try {
+            Cache::put($cacheKey, $rates, now()->addMinutes(5));
+        } catch (Throwable $exception) {
+            report($exception);
+        }
 
         return $rates;
     }
