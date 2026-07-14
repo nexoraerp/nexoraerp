@@ -14,13 +14,27 @@ const list = ref(null)
 const scrollToBottom = async () => {
     await nextTick()
 
-    if (list.value) {
-        list.value.scrollTop = list.value.scrollHeight
-    }
+    requestAnimationFrame(() => {
+        if (list.value) {
+            list.value.scrollTop = list.value.scrollHeight
+        }
+    })
+
+    window.setTimeout(() => {
+        if (list.value) {
+            list.value.scrollTop = list.value.scrollHeight
+        }
+    }, 80)
+}
+
+const messageSignature = () => {
+    return (props.messages ?? [])
+        .map(item => `${item.role}:${item.content}`)
+        .join('|')
 }
 
 watch(
-    () => [props.messages?.length, props.loading],
+    () => [props.messages?.length, props.loading, messageSignature()],
     scrollToBottom,
     { immediate: true }
 )

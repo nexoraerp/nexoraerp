@@ -153,7 +153,7 @@ watch(
             v-if="exchangeRates"
             :rates="exchangeRates"
             compact
-            class="hidden xl:block"
+            class="hidden max-w-[560px] 2xl:block"
         />
     </div>
 
@@ -161,7 +161,7 @@ watch(
 
         <OnboardingProgress
             :onboarding="onboarding"
-            class="hidden sm:block"
+            class="hidden 2xl:block"
         />
 
         <button

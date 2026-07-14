@@ -16,7 +16,10 @@ const open = ref(false)
 
 <template>
 
-<div class="fixed bottom-4 right-4 z-[999] sm:bottom-6 sm:right-6 lg:bottom-8 lg:right-8">
+<div
+    class="fixed right-4 z-[999] transition-[bottom] duration-200 sm:bottom-6 sm:right-6 lg:bottom-8 lg:right-8"
+    :class="open ? 'bottom-20' : 'bottom-4'"
+>
 
     <!-- AI Butonu -->
 
