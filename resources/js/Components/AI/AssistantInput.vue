@@ -82,7 +82,7 @@ onBeforeUnmount(() => {
             type="button"
             @click="toggleListening"
             :class="[
-                'flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition',
+                'flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition sm:h-11 sm:w-11',
                 listening
                     ? 'border-red-200 bg-red-50 text-red-700 dark:border-red-500/30 dark:bg-red-950/40 dark:text-red-300'
                     : 'border-slate-200 bg-white text-slate-600 hover:border-blue-300 hover:text-blue-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-blue-500/50 dark:hover:text-blue-300'
@@ -91,12 +91,12 @@ onBeforeUnmount(() => {
         >
             <MicOff
                 v-if="listening"
-                class="h-5 w-5"
+                class="h-4 w-4 sm:h-5 sm:w-5"
             />
 
             <Mic
                 v-else
-                class="h-5 w-5"
+                class="h-4 w-4 sm:h-5 sm:w-5"
             />
         </button>
 
@@ -105,17 +105,17 @@ onBeforeUnmount(() => {
             @keyup.enter="submit"
             type="text"
             placeholder="Nexora AI'ya yaz veya mikrofonla konuş..."
-            class="min-w-0 flex-1 rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500"
+            class="min-w-0 flex-1 rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500 sm:px-4 sm:py-3"
         >
 
         <button
             type="button"
             @click="submit"
             :disabled="!canSubmit"
-            class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-300 sm:h-11 sm:w-11"
             title="Gönder"
         >
-            <SendHorizontal class="h-5 w-5" />
+            <SendHorizontal class="h-4 w-4 sm:h-5 sm:w-5" />
         </button>
 
     </div>

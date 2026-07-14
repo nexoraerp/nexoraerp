@@ -30,7 +30,7 @@ watch(
 
 <div
     ref="list"
-    class="flex-1 overflow-y-auto p-4 text-sm text-slate-800 dark:text-slate-100 sm:p-5"
+    class="flex-1 overflow-y-auto p-3 text-sm text-slate-800 dark:text-slate-100 sm:p-5"
 >
 
     <div
@@ -41,7 +41,7 @@ watch(
 
         <div
             v-if="item.role==='assistant'"
-            class="whitespace-pre-line break-words rounded-xl bg-slate-100 p-4 leading-relaxed dark:bg-slate-900 dark:text-slate-100"
+            class="whitespace-pre-line break-words rounded-xl bg-slate-100 p-3 leading-relaxed dark:bg-slate-900 dark:text-slate-100 sm:p-4"
         >
 
             {{ item.content }}
@@ -50,7 +50,7 @@ watch(
 
         <div
             v-else
-            class="ml-8 whitespace-pre-line break-words rounded-xl bg-blue-600 p-4 leading-relaxed text-white sm:ml-16"
+            class="ml-6 whitespace-pre-line break-words rounded-xl bg-blue-600 p-3 leading-relaxed text-white sm:ml-16 sm:p-4"
         >
 
             {{ item.content }}
