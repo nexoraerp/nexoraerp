@@ -10,6 +10,7 @@ import Showcase from '@/Components/Landing/Showcase/Showcase.vue';
 import Intelligence from '@/Components/Landing/Intelligence/Intelligence.vue';
 import Pricing from '@/Components/Landing/Pricing/Pricing.vue';
 import Faq from '@/Components/Landing/Faq/Faq.vue';
+import LeadForm from '@/Components/Landing/LeadForm.vue';
 import Cta from '@/Components/Landing/CTA/Cta.vue';
 import Footer from '@/Components/Landing/Footer/Footer.vue';
 </script>
@@ -40,6 +41,9 @@ import Footer from '@/Components/Landing/Footer/Footer.vue';
 
         <!-- Sık Sorulan Sorular -->
         <Faq />
+
+        <!-- Bilgi Talebi -->
+        <LeadForm />
 
         <!-- Son Çağrı -->
         <Cta />

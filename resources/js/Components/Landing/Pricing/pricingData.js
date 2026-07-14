@@ -2,7 +2,7 @@ export const plans = [
     {
         name: "Starter",
         subtitle: "Yeni başlayan işletmeler",
-        price: "₺1.990",
+        price: "₺550",
         period: "/Ay",
         featured: false,
         button: "Ücretsiz Denemeyi Başlat",
@@ -18,7 +18,7 @@ export const plans = [
     {
         name: "Professional",
         subtitle: "Büyüyen ekipler için",
-        price: "₺3.990",
+        price: "₺680",
         period: "/Ay",
         featured: true,
         button: "Hemen Başlayın",

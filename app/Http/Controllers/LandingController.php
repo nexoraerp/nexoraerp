@@ -68,7 +68,7 @@ class LandingController extends Controller
             [
                 'name' => 'Starter',
                 'subtitle' => 'Yeni başlayan işletmeler',
-                'price' => '₺1.990',
+                'price' => '₺550',
                 'period' => '/Ay',
                 'button' => 'Ücretsiz Denemeyi Başlat',
                 'routeName' => 'register',
@@ -83,7 +83,7 @@ class LandingController extends Controller
             [
                 'name' => 'Professional',
                 'subtitle' => 'Büyüyen ekipler için',
-                'price' => '₺3.990',
+                'price' => '₺680',
                 'period' => '/Ay',
                 'button' => 'Hemen Başlayın',
                 'routeName' => 'register',

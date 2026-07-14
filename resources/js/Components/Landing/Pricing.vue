@@ -77,7 +77,7 @@ import { Link } from '@inertiajs/vue3';
                             <span
                                 class="text-6xl font-black text-slate-900"
                             >
-                                ₺3.990
+                                ₺680
                             </span>
 
                             <span
@@ -91,7 +91,7 @@ import { Link } from '@inertiajs/vue3';
                         <p
                             class="mt-4 text-sm text-slate-500"
                         >
-                            Professional paket aylık başlangıç fiyatıdır. Starter paket ₺1.990 /Ay olarak sunulur.
+                            Professional paket aylık başlangıç fiyatıdır. Starter paket ₺550 /Ay olarak sunulur.
                         </p>
 
                     </div>

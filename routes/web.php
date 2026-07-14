@@ -25,6 +25,7 @@ use App\Http\Controllers\AuditLogController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ProfitLossController;
 use App\Http\Controllers\SupportTicketController;
+use App\Http\Controllers\LeadRequestController;
 use OpenAI\Laravel\Facades\OpenAI;
 Route::get('/', [LandingController::class, 'index'])
     ->name('landing');
@@ -58,6 +59,9 @@ Route::get('/kullanici-sozlesmesi', [LandingController::class, 'terms'])
     ->name('landing.terms');
 Route::get('/acik-riza-metni', [LandingController::class, 'explicitConsent'])
     ->name('landing.explicit-consent');
+Route::post('/bilgi-talebi', [LeadRequestController::class, 'store'])
+    ->middleware('throttle:6,1')
+    ->name('lead-requests.store');
 /*
 |--------------------------------------------------------------------------
 | Public
@@ -297,6 +301,14 @@ Route::get('/admin/progress', [ProgressController::class, 'index'])
 Route::get('/admin/support-tickets', [SupportTicketController::class, 'adminIndex'])
     ->middleware('permission:admin.progress.view')
     ->name('admin.support-tickets.index');
+
+Route::get('/admin/lead-requests', [LeadRequestController::class, 'adminIndex'])
+    ->middleware('permission:admin.progress.view')
+    ->name('admin.lead-requests.index');
+
+Route::patch('/admin/lead-requests/{leadRequest}', [LeadRequestController::class, 'update'])
+    ->middleware('permission:admin.progress.view')
+    ->name('admin.lead-requests.update');
 
 Route::patch('/admin/users/{user}/activate-annual-license', [ProgressController::class, 'activateAnnualLicense'])
     ->middleware('permission:admin.progress.view')

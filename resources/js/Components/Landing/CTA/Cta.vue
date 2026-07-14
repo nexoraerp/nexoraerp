@@ -18,9 +18,11 @@ import CtaStats from './CtaStats.vue'
                    lg:py-16
                    shadow-[0_30px_90px_rgba(37,99,235,.22)]">
 
-            <CtaContent />
+            <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+                <CtaContent />
 
-            <CtaStats />
+                <CtaStats />
+            </div>
 
         </div>
 

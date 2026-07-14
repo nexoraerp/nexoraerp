@@ -74,7 +74,7 @@ import { Link } from '@inertiajs/vue3';
 
     <Link
         :href="route('register')"
-        class="mt-8 rounded-md bg-white px-7 py-3.5 text-base font-semibold text-slate-950 transition hover:bg-slate-100">
+        class="mt-8 inline-flex items-center justify-center rounded-md bg-white px-7 py-3.5 text-base font-semibold text-slate-950 transition hover:bg-slate-100">
 
         Kayıt Ol ve Ücretsiz Denemeyi Başlat
 

@@ -20,6 +20,7 @@ import {
     CircleDollarSign,
     LifeBuoy,
     LockKeyhole,
+    PhoneCall,
 } from 'lucide-vue-next';
 
 const page = usePage();
@@ -201,6 +202,13 @@ const groups = [
                 icon: LifeBuoy,
                 route: 'admin.support-tickets.index',
                 prefix: '/admin/support-tickets',
+                adminOnly: true,
+            },
+            {
+                title: 'Bilgi Talepleri',
+                icon: PhoneCall,
+                route: 'admin.lead-requests.index',
+                prefix: '/admin/lead-requests',
                 adminOnly: true,
             },
             {
