@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\LeadRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Throwable;
@@ -64,17 +63,11 @@ class LeadRequestController extends Controller
         }
 
         try {
-            LeadRequest::create([
+            LeadRequest::create($this->payloadForExistingColumns([
                 ...$validated,
                 'status' => 'new',
-            ]);
+            ]));
         } catch (Throwable $exception) {
-            Log::error('Lead request could not be created.', [
-                'message' => $exception->getMessage(),
-                'phone' => $validated['phone'] ?? null,
-                'email' => $validated['email'] ?? null,
-            ]);
-
             return back()->with(
                 'error',
                 'Bilgi talebiniz kaydedilemedi. Lütfen daha sonra tekrar deneyin.'
@@ -130,5 +123,16 @@ class LeadRequestController extends Controller
             'qualified' => 'Uygun Müşteri',
             'closed' => 'Kapandı',
         ];
+    }
+
+    private function payloadForExistingColumns(array $payload): array
+    {
+        $columns = array_flip(Schema::getColumnListing('lead_requests'));
+
+        return array_filter(
+            $payload,
+            fn (string $column): bool => isset($columns[$column]),
+            ARRAY_FILTER_USE_KEY
+        );
     }
 }
