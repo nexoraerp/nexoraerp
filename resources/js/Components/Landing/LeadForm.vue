@@ -12,6 +12,7 @@ const form = useForm({
 
 const page = usePage();
 const flash = computed(() => page.props.flash ?? {});
+const fieldClass = 'w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-950 caret-blue-700 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 dark:!border-slate-300 dark:!bg-white dark:!text-slate-950 dark:placeholder:!text-slate-400';
 
 const submit = () => {
     form.post(route('lead-requests.store'), {
@@ -58,7 +59,7 @@ const submit = () => {
                         <input
                             v-model="form.name"
                             type="text"
-                            class="w-full rounded-md border border-slate-300 px-4 py-3 text-sm font-semibold outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                            :class="fieldClass"
                             placeholder="Adınız soyadınız"
                         />
                         <p v-if="form.errors.name" class="text-sm text-red-600">{{ form.errors.name }}</p>
@@ -69,7 +70,7 @@ const submit = () => {
                         <input
                             v-model="form.company_name"
                             type="text"
-                            class="w-full rounded-md border border-slate-300 px-4 py-3 text-sm font-semibold outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                            :class="fieldClass"
                             placeholder="Firma adı"
                         />
                         <p v-if="form.errors.company_name" class="text-sm text-red-600">{{ form.errors.company_name }}</p>
@@ -80,7 +81,7 @@ const submit = () => {
                         <input
                             v-model="form.phone"
                             type="tel"
-                            class="w-full rounded-md border border-slate-300 px-4 py-3 text-sm font-semibold outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                            :class="fieldClass"
                             placeholder="05xx xxx xx xx"
                         />
                         <p v-if="form.errors.phone" class="text-sm text-red-600">{{ form.errors.phone }}</p>
@@ -91,7 +92,7 @@ const submit = () => {
                         <input
                             v-model="form.email"
                             type="email"
-                            class="w-full rounded-md border border-slate-300 px-4 py-3 text-sm font-semibold outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                            :class="fieldClass"
                             placeholder="ornek@firma.com"
                         />
                         <p v-if="form.errors.email" class="text-sm text-red-600">{{ form.errors.email }}</p>
@@ -103,7 +104,7 @@ const submit = () => {
                     <textarea
                         v-model="form.message"
                         rows="5"
-                        class="w-full resize-none rounded-md border border-slate-300 px-4 py-3 text-sm font-semibold outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                        :class="[fieldClass, 'resize-none']"
                         placeholder="Bilgi almak istediğiniz konuyu yazabilirsiniz."
                     ></textarea>
                     <p v-if="form.errors.message" class="text-sm text-red-600">{{ form.errors.message }}</p>
