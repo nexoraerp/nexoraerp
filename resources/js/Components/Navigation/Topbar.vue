@@ -153,7 +153,7 @@ watch(
             v-if="exchangeRates"
             :rates="exchangeRates"
             compact
-            class="hidden max-w-[560px] 2xl:block"
+            class="hidden w-[320px] xl:block 2xl:w-[520px]"
         />
     </div>
 

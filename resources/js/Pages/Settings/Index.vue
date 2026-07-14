@@ -37,10 +37,10 @@ const activeSection = computed(() => {
     const query = page.url.split('?')[1] ?? '';
     const section = new URLSearchParams(query).get('section');
 
-    return section ?? 'users';
+    return section ?? 'definitions';
 });
 
-const sectionLinks = [
+const allSections = [
     {
         key: 'users',
         title: 'Kullanıcılar',
@@ -67,8 +67,10 @@ const sectionLinks = [
     },
 ];
 
+const sectionLinks = allSections.filter(section => ['definitions', 'security'].includes(section.key));
+
 const currentSection = computed(() => (
-    sectionLinks.find(section => section.key === activeSection.value) ?? sectionLinks[0]
+    allSections.find(section => section.key === activeSection.value) ?? allSections.find(section => section.key === 'definitions')
 ));
 
 const permissionOptions = computed(() => Object.entries(props.permissions).map(([value, label]) => ({
@@ -181,7 +183,7 @@ const updatePassword = () => {
                 :subtitle="currentSection.subtitle"
             />
 
-            <div class="grid gap-3 md:grid-cols-4">
+            <div class="grid gap-3 md:grid-cols-2">
                 <Link
                     v-for="section in sectionLinks"
                     :key="section.key"

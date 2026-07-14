@@ -30,7 +30,7 @@ const formatRate = (value) => {
 <template>
     <section
         class="overflow-hidden border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-950"
-        :class="compact ? 'h-11 w-[460px] rounded-2xl 2xl:w-[560px]' : 'rounded-3xl'"
+        :class="compact ? 'h-10 w-full rounded-2xl' : 'rounded-3xl'"
     >
         <div
             v-if="rates.available && rates.items?.length"
@@ -39,7 +39,7 @@ const formatRate = (value) => {
         >
             <div
                 class="flex shrink-0 items-center gap-2 border-r border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900"
-                :class="compact ? 'h-full px-3' : 'px-5 py-4'"
+                :class="compact ? 'h-full px-2.5' : 'px-5 py-4'"
             >
                 <RefreshCw class="h-3.5 w-3.5 text-blue-700" />
                 <div>
@@ -78,7 +78,7 @@ const formatRate = (value) => {
                             v-for="rate in rates.items"
                             :key="`${copy}-${rate.code}`"
                             class="flex items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900"
-                            :class="compact ? 'min-w-[172px] gap-2 px-3 py-1.5' : 'min-w-[260px] gap-4 px-4 py-3'"
+                            :class="compact ? 'min-w-[148px] gap-2 px-2.5 py-1' : 'min-w-[260px] gap-4 px-4 py-3'"
                         >
                             <div>
                                 <div class="flex items-center gap-2">
