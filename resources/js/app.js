@@ -6,6 +6,9 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 
+const storedTheme = localStorage.getItem('nexora-theme') ?? 'light';
+
+document.documentElement.classList.toggle('dark', storedTheme === 'dark');
 
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
