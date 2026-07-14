@@ -1,7 +1,8 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
 import LandingLayout from '@/Layouts/LandingLayout.vue';
 import Footer from '@/Components/Landing/Footer/Footer.vue';
+import SeoHead from '@/Components/Seo/SeoHead.vue';
 
 defineProps({
     page: {
@@ -12,7 +13,12 @@ defineProps({
 </script>
 
 <template>
-    <Head :title="`${page.title} | Nexora ERP`" />
+    <SeoHead
+        :title="`${page.title} | Nexora ERP`"
+        :description="page.description"
+        :canonical="page.canonical"
+        :robots="page.robots ?? 'index, follow'"
+    />
 
     <LandingLayout variant="light">
         <section class="border-b border-slate-200 bg-slate-50 pt-36">

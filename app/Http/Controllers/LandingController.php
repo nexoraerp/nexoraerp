@@ -6,6 +6,8 @@ use Inertia\Inertia;
 
 class LandingController extends Controller
 {
+    private const SITE_URL = 'https://nexoraerp.com.tr';
+
     public function index()
     {
         return Inertia::render('Landing/Index');
@@ -281,6 +283,8 @@ class LandingController extends Controller
                 'highlights' => $highlights,
                 'pricingPlans' => $pricingPlans,
                 'type' => 'marketing',
+                'canonical' => $this->canonical(),
+                'robots' => 'index, follow',
             ],
         ]);
     }
@@ -303,6 +307,8 @@ class LandingController extends Controller
                     'Güvenli erişim ve hesap yönetimi',
                 ],
                 'type' => 'legal',
+                'canonical' => $this->canonical(),
+                'robots' => 'index, follow',
             ],
         ]);
     }
@@ -322,7 +328,18 @@ class LandingController extends Controller
                     'Nexora ERP’ye özel koşullar',
                 ],
                 'type' => 'legal',
+                'canonical' => $this->canonical(),
+                'robots' => 'index, follow',
             ],
         ]);
+    }
+
+    private function canonical(): string
+    {
+        $path = trim(request()->path(), '/');
+
+        return $path === ''
+            ? self::SITE_URL
+            : self::SITE_URL . '/' . $path;
     }
 }

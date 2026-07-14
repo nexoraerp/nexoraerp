@@ -62,6 +62,46 @@ Route::get('/acik-riza-metni', [LandingController::class, 'explicitConsent'])
 Route::post('/bilgi-talebi', [LeadRequestController::class, 'store'])
     ->middleware('throttle:6,1')
     ->name('lead-requests.store');
+
+Route::get('/sitemap.xml', function () {
+    $baseUrl = 'https://nexoraerp.com.tr';
+    $updatedAt = now()->toDateString();
+    $paths = [
+        ['/', '1.00', 'daily'],
+        ['/ozellikler', '0.90', 'weekly'],
+        ['/moduller', '0.90', 'weekly'],
+        ['/cozumler', '0.85', 'weekly'],
+        ['/fiyatlar', '0.95', 'weekly'],
+        ['/hakkimizda', '0.70', 'monthly'],
+        ['/blog', '0.70', 'weekly'],
+        ['/iletisim', '0.80', 'monthly'],
+        ['/sss', '0.75', 'monthly'],
+        ['/dokumantasyon', '0.75', 'monthly'],
+        ['/destek-merkezi', '0.70', 'monthly'],
+        ['/kvkk', '0.35', 'yearly'],
+        ['/gizlilik', '0.35', 'yearly'],
+        ['/cerez-politikasi', '0.35', 'yearly'],
+        ['/kullanici-sozlesmesi', '0.35', 'yearly'],
+        ['/acik-riza-metni', '0.35', 'yearly'],
+    ];
+
+    $urls = collect($paths)
+        ->map(fn (array $item) => sprintf(
+            '<url><loc>%s%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%s</priority></url>',
+            $baseUrl,
+            $item[0] === '/' ? '' : $item[0],
+            $updatedAt,
+            $item[2],
+            $item[1],
+        ))
+        ->implode('');
+
+    return response(
+        '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . $urls . '</urlset>',
+        200,
+        ['Content-Type' => 'application/xml']
+    );
+})->name('sitemap');
 /*
 |--------------------------------------------------------------------------
 | Public
