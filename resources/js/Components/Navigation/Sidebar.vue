@@ -265,7 +265,7 @@ const isActive = (item) => {
 
 <template>
 
-<aside class="w-72 bg-slate-900 text-white h-screen flex flex-col shadow-2xl">
+<aside class="hidden w-72 bg-slate-900 text-white h-screen flex-col shadow-2xl lg:flex">
 
     <div class="px-8 py-8 border-b border-slate-800">
 

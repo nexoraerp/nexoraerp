@@ -4,6 +4,7 @@ import { usePage } from '@inertiajs/vue3';
 import { CheckCircle2, AlertCircle } from 'lucide-vue-next';
 import Sidebar from '@/Components/Navigation/Sidebar.vue';
 import Topbar from '@/Components/Navigation/Topbar.vue';
+import MobileBottomNav from '@/Components/Navigation/MobileBottomNav.vue';
 import AssistantWidget from '@/Components/AI/AssistantWidget.vue';
 
 const page = usePage();
@@ -23,7 +24,7 @@ const flash = computed(() => page.props.flash ?? {});
 
         <div
             v-if="flash.success || flash.error"
-            class="px-8 pt-6"
+            class="px-4 pt-4 sm:px-6 lg:px-8 lg:pt-6"
         >
             <div
                 :class="[
@@ -47,7 +48,7 @@ const flash = computed(() => page.props.flash ?? {});
             </div>
         </div>
 
-        <main class="flex-1 p-8">
+        <main class="flex-1 px-4 pb-28 pt-4 sm:px-6 sm:pt-6 lg:p-8">
 
             <slot />
 
@@ -56,6 +57,7 @@ const flash = computed(() => page.props.flash ?? {});
     </div>
 
     <AssistantWidget :briefing="aiBriefing" />
+    <MobileBottomNav />
 
 </div>
 

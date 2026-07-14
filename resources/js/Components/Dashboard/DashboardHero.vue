@@ -9,33 +9,33 @@ const today = new Date().toLocaleDateString('tr-TR', {
 <template>
 
     <div
-        class="rounded-3xl overflow-hidden bg-gradient-to-r
+        class="overflow-hidden rounded-2xl bg-gradient-to-r
                from-slate-900
                via-slate-800
                to-blue-900
-               p-10
+               p-5 sm:p-8 lg:p-10
                shadow-xl text-white"
     >
 
-        <div class="flex items-center justify-between">
+        <div class="flex items-start justify-between gap-4">
 
             <div>
 
-                <p class="uppercase tracking-[0.35em] text-blue-300 text-sm">
+                <p class="text-xs font-bold uppercase tracking-[0.24em] text-blue-300 sm:text-sm sm:tracking-[0.35em]">
                     NEXORA ERP
                 </p>
 
-                <h1 class="text-4xl font-black mt-4">
+                <h1 class="mt-3 text-2xl font-black leading-tight sm:mt-4 sm:text-4xl">
                     İşletmenizin Genel Durumu
                 </h1>
 
-                <p class="mt-4 text-slate-300 text-lg">
+                <p class="mt-3 text-sm text-slate-300 sm:mt-4 sm:text-lg">
                     Tüm işletmenizi tek panelden yönetin.
                 </p>
 
             </div>
 
-            <div class="hidden lg:block text-right">
+            <div class="hidden shrink-0 text-right sm:block">
 
                 <p class="text-blue-200">
                     {{ today }}

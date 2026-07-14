@@ -120,15 +120,15 @@ watch(theme, applyTheme);
 <template>
 
 <header
-    class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-8 transition-colors dark:border-slate-800 dark:bg-slate-950">
+    class="sticky top-0 z-30 border-b border-slate-200 bg-white/95 px-4 py-3 shadow-sm shadow-slate-200/50 backdrop-blur-xl transition-colors dark:border-slate-800 dark:bg-slate-950/95 dark:shadow-black/20 sm:px-6 lg:h-20 lg:px-8 lg:py-0">
 
-    <div class="flex min-w-0 items-center gap-5">
-        <div class="shrink-0">
-            <h1 class="text-2xl font-bold text-slate-800 dark:text-slate-100">
+    <div class="flex min-w-0 items-center gap-3 sm:gap-5">
+        <div class="min-w-0 shrink">
+            <h1 class="truncate text-lg font-black text-slate-800 dark:text-slate-100 sm:text-2xl">
                 {{ pageMeta.title }}
             </h1>
 
-            <p class="text-sm text-slate-500 dark:text-slate-400">
+            <p class="truncate text-xs font-semibold text-slate-500 dark:text-slate-400 sm:text-sm">
                 {{ pageMeta.subtitle }}
             </p>
         </div>
@@ -141,9 +141,12 @@ watch(theme, applyTheme);
         />
     </div>
 
-    <div class="flex items-center gap-6">
+    <div class="flex shrink-0 items-center gap-2 sm:gap-4 lg:gap-6">
 
-        <OnboardingProgress :onboarding="onboarding" />
+        <OnboardingProgress
+            :onboarding="onboarding"
+            class="hidden sm:block"
+        />
 
         <button
             type="button"
@@ -166,16 +169,16 @@ watch(theme, applyTheme);
             <button
                 type="button"
                 @click="menuOpen = !menuOpen"
-                class="flex items-center gap-3 rounded-2xl px-3 py-2 transition hover:bg-slate-50 dark:hover:bg-slate-900"
+                class="flex items-center gap-2 rounded-2xl px-1 py-1 transition hover:bg-slate-50 dark:hover:bg-slate-900 sm:gap-3 sm:px-3 sm:py-2"
             >
                 <div
-                    class="w-11 h-11 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
+                    class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 font-bold text-white sm:h-11 sm:w-11">
 
                     {{ initial }}
 
                 </div>
 
-                <div class="text-left">
+                <div class="hidden text-left sm:block">
 
                     <div class="font-semibold dark:text-slate-100">
                         {{ user.name }}
@@ -192,7 +195,7 @@ watch(theme, applyTheme);
 
             <div
                 v-if="menuOpen"
-                class="absolute right-0 z-50 mt-3 w-80 rounded-2xl border border-slate-200 bg-white p-4 shadow-2xl dark:border-slate-800 dark:bg-slate-950"
+                class="absolute right-0 z-50 mt-3 w-[calc(100vw-2rem)] max-w-80 rounded-2xl border border-slate-200 bg-white p-4 shadow-2xl dark:border-slate-800 dark:bg-slate-950"
             >
                 <div class="border-b border-slate-100 pb-4">
                     <div class="font-black text-slate-950 dark:text-slate-100">{{ user.name }}</div>
@@ -214,24 +217,24 @@ watch(theme, applyTheme);
                     </div>
 
                     <div class="grid grid-cols-2 gap-3 text-sm">
-                        <div class="rounded-xl bg-slate-50 p-3">
+                        <div class="rounded-xl bg-slate-50 p-3 dark:bg-slate-900">
                             <div class="text-xs font-bold text-slate-500">Lisans Başlangıç</div>
-                            <div class="mt-1 font-black text-slate-950">{{ license.license_started_at ?? '-' }}</div>
+                            <div class="mt-1 font-black text-slate-950 dark:text-slate-100">{{ license.license_started_at ?? '-' }}</div>
                         </div>
 
-                        <div class="rounded-xl bg-slate-50 p-3">
+                        <div class="rounded-xl bg-slate-50 p-3 dark:bg-slate-900">
                             <div class="text-xs font-bold text-slate-500">Lisans Bitiş</div>
-                            <div class="mt-1 font-black text-slate-950">{{ license.license_ends_at ?? '-' }}</div>
+                            <div class="mt-1 font-black text-slate-950 dark:text-slate-100">{{ license.license_ends_at ?? '-' }}</div>
                         </div>
 
-                        <div class="rounded-xl bg-slate-50 p-3">
+                        <div class="rounded-xl bg-slate-50 p-3 dark:bg-slate-900">
                             <div class="text-xs font-bold text-slate-500">Deneme Bitiş</div>
-                            <div class="mt-1 font-black text-slate-950">{{ license.trial_ends_at ?? '-' }}</div>
+                            <div class="mt-1 font-black text-slate-950 dark:text-slate-100">{{ license.trial_ends_at ?? '-' }}</div>
                         </div>
 
-                        <div class="rounded-xl bg-slate-50 p-3">
+                        <div class="rounded-xl bg-slate-50 p-3 dark:bg-slate-900">
                             <div class="text-xs font-bold text-slate-500">Kalan Süre</div>
-                            <div class="mt-1 font-black text-slate-950">
+                            <div class="mt-1 font-black text-slate-950 dark:text-slate-100">
                                 {{ license.remaining_days_label ?? `${Math.floor(Number(license.remaining_days ?? 0))} gün` }}
                             </div>
                         </div>

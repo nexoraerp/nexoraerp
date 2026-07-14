@@ -1,28 +1,29 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
+import { PackagePlus, ReceiptText, UserPlus, Warehouse } from 'lucide-vue-next';
 
 const actions = [
     {
         title: 'Yeni Cari',
-        icon: '👥',
+        icon: UserPlus,
         color: 'bg-blue-50 text-blue-600',
         href: route('customers.create'),
     },
     {
         title: 'Yeni Ürün',
-        icon: '📦',
+        icon: PackagePlus,
         color: 'bg-emerald-50 text-emerald-600',
         href: route('products.create'),
     },
     {
         title: 'Stok Girişi',
-        icon: '📥',
+        icon: Warehouse,
         color: 'bg-purple-50 text-purple-600',
         href: route('stock-movements.create'),
     },
     {
         title: 'Yeni Satış',
-        icon: '🛒',
+        icon: ReceiptText,
         color: 'bg-orange-50 text-orange-600',
         href: route('sales.create'),
     },
@@ -31,17 +32,17 @@ const actions = [
 
 <template>
 
-<div class="bg-white rounded-3xl border shadow-sm p-8">
+<div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-8">
 
-    <div class="flex items-center justify-between mb-6">
+    <div class="mb-4 flex items-center justify-between sm:mb-6">
 
-        <h2 class="text-xl font-bold text-slate-800">
-            ⚡ Hızlı İşlemler
+        <h2 class="text-lg font-black text-slate-800 dark:text-slate-100 sm:text-xl">
+            Hızlı İşlemler
         </h2>
 
     </div>
 
-    <div class="grid grid-cols-2 xl:grid-cols-4 gap-5">
+    <div class="grid grid-cols-2 gap-3 xl:grid-cols-4 xl:gap-5">
 
         <Link
             v-for="action in actions"
@@ -51,27 +52,29 @@ const actions = [
         >
 
             <div
-                class="rounded-2xl border p-6
+                class="rounded-2xl border border-slate-200 p-4
                        hover:shadow-lg
-                       hover:-translate-y-1
                        hover:border-blue-200
-                       transition-all duration-300"
+                       transition-all duration-300 dark:border-slate-800 sm:p-6 lg:hover:-translate-y-1"
             >
 
                 <div
-                    class="w-14 h-14 rounded-xl flex items-center justify-center text-3xl"
+                    class="flex h-11 w-11 items-center justify-center rounded-xl sm:h-14 sm:w-14"
                     :class="action.color"
                 >
-                    {{ action.icon }}
+                    <component
+                        :is="action.icon"
+                        class="h-5 w-5 sm:h-7 sm:w-7"
+                    />
                 </div>
 
-                <h3 class="mt-5 font-semibold text-slate-800">
+                <h3 class="mt-4 text-sm font-black text-slate-800 dark:text-slate-100 sm:mt-5 sm:text-base">
 
                     {{ action.title }}
 
                 </h3>
 
-                <p class="mt-2 text-sm text-slate-500">
+                <p class="mt-1 text-xs font-semibold text-slate-500 sm:mt-2 sm:text-sm">
 
                     Oluştur
 

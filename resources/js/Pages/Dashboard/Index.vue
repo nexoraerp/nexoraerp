@@ -110,12 +110,12 @@ defineProps({
 
     <NxLayout>
 
-        <div class="space-y-8">
+        <div class="space-y-5 sm:space-y-8">
 
             <div class="flex justify-end">
                 <button
                     type="button"
-                    class="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-black text-slate-700 shadow-sm transition hover:border-blue-200 hover:text-blue-700"
+                    class="inline-flex min-h-11 items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-xs font-black text-slate-700 shadow-sm transition hover:border-blue-200 hover:text-blue-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 sm:px-5 sm:text-sm"
                     @click="hideSensitive = !hideSensitive"
                 >
                     <EyeOff
@@ -168,7 +168,7 @@ defineProps({
             <DashboardQuickActions />
 
             <!-- Alt Widgetlar -->
-            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 gap-5 xl:grid-cols-2 xl:gap-8">
 
                 <DashboardCriticalStock
                     :products="criticalProducts"

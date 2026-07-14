@@ -110,12 +110,12 @@ const colors = {
     <Link :href="href">
 
         <div
-            class="group bg-white rounded-3xl border border-slate-200 p-7 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer h-full dark:border-slate-800 dark:bg-slate-950"
+            class="group h-full cursor-pointer rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-300 hover:shadow-2xl dark:border-slate-800 dark:bg-slate-950 sm:p-7 lg:hover:-translate-y-2"
             :class="colors[color]?.border || colors.blue.border"
         >
 
             <div
-                class="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl transition-all duration-300 group-hover:scale-110"
+                class="flex h-11 w-11 items-center justify-center rounded-2xl text-2xl transition-all duration-300 group-hover:scale-110 sm:h-16 sm:w-16 sm:text-3xl"
                 :class="[
                     colors[color]?.bg || colors.blue.bg,
                     colors[color]?.text || colors.blue.text
@@ -124,29 +124,29 @@ const colors = {
                 {{ icon }}
             </div>
 
-            <div class="mt-6">
+            <div class="mt-4 sm:mt-6">
 
-                <h2 class="text-xl font-bold text-slate-800 dark:text-slate-100">
+                <h2 class="text-sm font-black text-slate-800 dark:text-slate-100 sm:text-xl">
                     {{ title }}
                 </h2>
 
                 <div
                     v-if="count !== ''"
-                    class="text-5xl font-extrabold mt-6 text-slate-900 break-words dark:text-slate-100"
+                    class="mt-3 break-words text-2xl font-black text-slate-900 dark:text-slate-100 sm:mt-6 sm:text-5xl"
                 >
                     {{ count }}
                 </div>
 
                 <p
                     v-if="subtitle"
-                    class="text-slate-500 mt-2 dark:text-slate-400"
+                    class="mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400 sm:mt-2 sm:text-base"
                 >
                     {{ subtitle }}
                 </p>
 
             </div>
 
-            <div class="mt-8 pt-5 border-t border-slate-200 flex items-center justify-between dark:border-slate-800">
+            <div class="mt-4 flex items-center justify-between border-t border-slate-200 pt-4 dark:border-slate-800 sm:mt-8 sm:pt-5">
 
                 <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">
                     Yönet
