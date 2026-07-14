@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\LeadRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
+use Throwable;
 
 class LeadRequestController extends Controller
 {
@@ -40,10 +42,23 @@ class LeadRequestController extends Controller
             'message' => ['nullable', 'string', 'max:2000'],
         ]);
 
-        LeadRequest::create([
-            ...$validated,
-            'status' => 'new',
-        ]);
+        try {
+            LeadRequest::create([
+                ...$validated,
+                'status' => 'new',
+            ]);
+        } catch (Throwable $exception) {
+            Log::error('Lead request could not be created.', [
+                'message' => $exception->getMessage(),
+                'phone' => $validated['phone'] ?? null,
+                'email' => $validated['email'] ?? null,
+            ]);
+
+            return back()->with(
+                'error',
+                'Bilgi talebiniz kaydedilemedi. Lütfen daha sonra tekrar deneyin.'
+            );
+        }
 
         return back()->with('success', 'Bilgi talebiniz alındı. Nexora ekibi sizinle iletişime geçecek.');
     }

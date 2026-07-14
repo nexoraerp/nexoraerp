@@ -1,5 +1,6 @@
 <script setup>
-import { useForm } from '@inertiajs/vue3';
+import { computed } from 'vue';
+import { useForm, usePage } from '@inertiajs/vue3';
 
 const form = useForm({
     name: '',
@@ -8,6 +9,9 @@ const form = useForm({
     email: '',
     message: '',
 });
+
+const page = usePage();
+const flash = computed(() => page.props.flash ?? {});
 
 const submit = () => {
     form.post(route('lead-requests.store'), {
@@ -114,10 +118,17 @@ const submit = () => {
                 </button>
 
                 <p
-                    v-if="form.recentlySuccessful"
+                    v-if="form.recentlySuccessful || flash.success"
                     class="mt-4 rounded-md bg-emerald-50 px-4 py-3 text-sm font-bold text-emerald-700"
                 >
-                    Talebiniz alındı. En kısa sürede sizinle iletişime geçeceğiz.
+                    {{ flash.success || 'Talebiniz alındı. En kısa sürede sizinle iletişime geçeceğiz.' }}
+                </p>
+
+                <p
+                    v-if="flash.error"
+                    class="mt-4 rounded-md bg-red-50 px-4 py-3 text-sm font-bold text-red-700"
+                >
+                    {{ flash.error }}
                 </p>
             </form>
         </div>
